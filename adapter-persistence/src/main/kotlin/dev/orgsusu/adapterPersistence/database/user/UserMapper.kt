@@ -1,0 +1,14 @@
+package dev.orgsusu.adapterPersistence.database.user
+
+import dev.orgsusu.adapterPersistence.database.user.entity.UserEntity
+import io.mcarle.konvert.api.Konverter
+import dev.orgsusu.domain.model.user.PartialUserDomain
+import dev.orgsusu.domain.model.user.UserDomain
+
+@Konverter
+interface UserMapper {
+    fun toEntity(model: UserDomain): UserEntity
+    fun toEntity(model: PartialUserDomain): UserEntity
+    fun partialUserModelToDomain(entity: UserEntity): PartialUserDomain
+    fun userModelToDomain(entity: UserEntity): UserDomain
+}
