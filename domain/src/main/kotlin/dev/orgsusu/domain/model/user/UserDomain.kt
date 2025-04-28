@@ -1,5 +1,6 @@
 package dev.orgsusu.domain.model.user
 
+import java.io.Serializable
 import java.time.LocalDate
 import java.time.LocalDateTime
 
@@ -14,7 +15,7 @@ data class UserDomain(
     val deletedAt: LocalDateTime? = null,
     val createdAt: LocalDateTime? = null,
     val updatedAt: LocalDateTime? = null
-){
+): Serializable {
     fun update(
         phoneNum: String? = null,
         mail: String? = null,
@@ -33,5 +34,4 @@ data class UserDomain(
             deletedAt = LocalDateTime.now()
         )
     }
-
 }

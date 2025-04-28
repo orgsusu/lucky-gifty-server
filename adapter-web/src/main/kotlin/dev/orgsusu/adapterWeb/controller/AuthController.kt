@@ -35,7 +35,10 @@ class AuthController(
 
     @PostMapping("/logout")
     fun logout(request: HttpServletRequest): ResponseEntity<ResponseEmpty> {
-        val sessionId = request.getSession(false)?.id
+        val session = request.getSession(false)
+        val sessionId = session?.id
+        session?.invalidate()
+        
         sessionLogoutHandler.logoutSession(sessionId)
         sessionLogoutHandler.clearSecurityContext()
 

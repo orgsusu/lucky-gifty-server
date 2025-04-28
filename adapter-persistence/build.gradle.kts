@@ -10,6 +10,10 @@ dependencies{
 	implementation("jakarta.servlet:jakarta.servlet-api")
 	runtimeOnly("org.mariadb.jdbc:mariadb-java-client")
 
+	implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
+	implementation("com.fasterxml.jackson.datatype:jackson-datatype-jsr310")
+	implementation("org.jetbrains.kotlin:kotlin-reflect")
+
 	implementation("io.mcarle:konvert-api:4.0.1")
 	implementation("io.mcarle:konvert-spring-annotations:4.0.1")
 	ksp("io.mcarle:konvert:4.0.1")

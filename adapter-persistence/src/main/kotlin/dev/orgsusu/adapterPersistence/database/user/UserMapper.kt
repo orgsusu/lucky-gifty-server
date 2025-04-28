@@ -4,8 +4,10 @@ import dev.orgsusu.adapterPersistence.database.user.entity.UserEntity
 import io.mcarle.konvert.api.Konverter
 import dev.orgsusu.domain.model.user.PartialUserDomain
 import dev.orgsusu.domain.model.user.UserDomain
+import io.mcarle.konvert.injector.spring.KComponent
 
 @Konverter
+@KComponent
 interface UserMapper {
     fun toEntity(model: UserDomain): UserEntity
     fun toEntity(model: PartialUserDomain): UserEntity
