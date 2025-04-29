@@ -40,8 +40,9 @@ class SecurityConfig(
                     .maxSessionsPreventsLogin(false)
             }
             .authorizeHttpRequests {
-                it.requestMatchers("/auth/logout").authenticated()
-                    .requestMatchers("/auth/**").permitAll()
+                it
+                    .requestMatchers("/auth/logout").authenticated()
+                    .requestMatchers("/auth/**").anonymous()
                     .anyRequest().authenticated()
             }
             .logout {
