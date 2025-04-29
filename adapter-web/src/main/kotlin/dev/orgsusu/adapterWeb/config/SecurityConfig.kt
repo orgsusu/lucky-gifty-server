@@ -20,22 +20,23 @@ import org.springframework.web.cors.CorsConfigurationSource
 @Configuration
 @EnableWebSecurity
 class SecurityConfig(
-    private val authenticationConfiguration: AuthenticationConfiguration
+    private val authenticationConfiguration: AuthenticationConfiguration,
 ) {
 
     @Bean
     fun securityFilterChain(
         http: HttpSecurity,
         exceptionHandleFilter: ExceptionHandleFilter,
-        securityLogoutAdapter: SecurityLogoutAdapter
+        securityLogoutAdapter: SecurityLogoutAdapter,
     ): SecurityFilterChain {
         return http
             .httpBasic { it.disable() }
             .csrf { it.disable() }
             .cors { it.configurationSource(corsConfigurationSource()) }
             .sessionManagement {
-                it.sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)
-                    .sessionFixation { session -> session.newSession() }
+                it
+                    .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)
+                    .sessionFixation { session -> session.changeSessionId() }
                     .maximumSessions(1)
                     .maxSessionsPreventsLogin(false)
             }
@@ -46,7 +47,8 @@ class SecurityConfig(
                     .anyRequest().authenticated()
             }
             .logout {
-                it.logoutUrl("/auth/logout")
+                it
+                    .logoutUrl("/auth/logout")
                     .invalidateHttpSession(true)
                     .addLogoutHandler(securityLogoutAdapter)
                     .logoutSuccessHandler(securityLogoutAdapter)
