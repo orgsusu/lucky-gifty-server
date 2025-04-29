@@ -23,10 +23,4 @@ class SessionConfig {
 
     @Bean
     fun httpSessionIdResolver(): HttpSessionIdResolver = HeaderHttpSessionIdResolver.xAuthToken()
-
-
-    @Bean
-    fun sessionAuthenticationStrategy(): SessionAuthenticationStrategy {
-        return ChangeSessionIdAuthenticationStrategy()
-    }
 }
