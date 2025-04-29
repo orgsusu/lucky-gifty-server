@@ -22,5 +22,5 @@ class SessionConfig {
     ): SessionRegistry = SpringSessionBackedSessionRegistry(redisIndexedSessionRepository)
 
     @Bean
-    fun httpSessionIdResolver(): HttpSessionIdResolver = HeaderHttpSessionIdResolver.xAuthToken()
+    fun httpSessionIdResolver(): HttpSessionIdResolver = CookieHttpSessionIdResolver()
 }
