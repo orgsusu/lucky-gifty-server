@@ -17,7 +17,7 @@ class AuthController(
 
     @GetMapping
     fun checkCredentialAvailability(@RequestParam credential: String): ResponseEntity<ResponseData<Boolean>> {
-        val isAvailable = userUseCase.isCredentialAvailable(credential)
+        val isAvailable = userUseCase.checkCredentialAvailable(credential)
         return ResponseData.ok(data = isAvailable)
     }
 

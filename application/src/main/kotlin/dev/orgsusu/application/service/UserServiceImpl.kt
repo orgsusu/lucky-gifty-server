@@ -16,7 +16,7 @@ class UserServiceImpl(
     private val userContextHolder: UserContextHolder
 ) : UserService {
     override fun registerUser(partialUser: PartialUserDomain): UserDomain {
-        isCredentialAvailable(partialUser.credential)
+        checkCredentialAvailable(partialUser.credential)
 
         val userWithEncodedPassword = partialUser.copy(
             password = passwordEncoder.encode(partialUser.password)

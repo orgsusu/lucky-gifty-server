@@ -16,6 +16,6 @@ interface UserUseCase {
     ): UserDomain
 
     fun deleteUser(id: Long): UserDomain
-    fun isCredentialAvailable(credential: String): Boolean
+    fun checkCredentialAvailable(credential: String): Boolean
     fun getCurrentUser(): UserDomain
 }
