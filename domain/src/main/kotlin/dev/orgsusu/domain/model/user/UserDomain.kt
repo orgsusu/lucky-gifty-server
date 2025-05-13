@@ -15,23 +15,4 @@ data class UserDomain(
     val deletedAt: LocalDateTime? = null,
     val createdAt: LocalDateTime? = null,
     val updatedAt: LocalDateTime? = null
-): Serializable {
-    fun update(
-        phoneNum: String? = null,
-        mail: String? = null,
-        birthDate: LocalDate? = null
-    ): UserDomain {
-        return copy(
-            phoneNum = phoneNum ?: this.phoneNum,
-            mail = mail ?: this.mail,
-            birthDate = birthDate ?: this.birthDate
-        )
-    }
-
-    fun delete(): UserDomain {
-        return copy(
-            status = UserStatus.DELETED,
-            deletedAt = LocalDateTime.now()
-        )
-    }
-}
+): Serializable

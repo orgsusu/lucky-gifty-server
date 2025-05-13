@@ -4,10 +4,12 @@ import dev.orgsusu.common.exception.CustomException
 import dev.orgsusu.application.exception.UserExceptionDetails
 import dev.orgsusu.domain.model.user.PartialUserDomain
 import dev.orgsusu.domain.model.user.UserDomain
+import dev.orgsusu.domain.model.user.UserStatus
 import dev.orgsusu.domain.port.outgoing.UserPort
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Service
 import java.time.LocalDate
+import java.time.LocalDateTime
 
 @Service
 class UserServiceImpl(
@@ -22,7 +24,8 @@ class UserServiceImpl(
             password = passwordEncoder.encode(partialUser.password)
         ).toUser()
 
-        return userPort.save(userWithEncodedPassword)    }
+        return userPort.save(userWithEncodedPassword)
+    }
 
     override fun authenticateUser(credential: String, password: String): UserDomain {
         val user = userPort.findByCredential(credential) ?: throw CustomException(UserExceptionDetails.BAD_CREDENTIALS)
@@ -38,19 +41,34 @@ class UserServiceImpl(
         return findUserById(id)
     }
 
-    override fun updateUserInfo(id: Long, phoneNum: String?, mail: String?, birthDate: LocalDate?): UserDomain {
+    override fun updateUserInfo(
+        id: Long,
+        phoneNum: String?,
+        mail: String?,
+        birthDate: LocalDate?
+    ): UserDomain {
         val user = findUserById(id)
-        val updatedUser = user.update(phoneNum, mail, birthDate)
+
+        val updatedUser = user.copy(
+            phoneNum = phoneNum ?: user.phoneNum,
+            mail = mail ?: user.mail,
+            birthDate = birthDate ?: user.birthDate
+        )
+
         return userPort.save(updatedUser)
     }
 
     override fun deleteUser(id: Long): UserDomain {
         val user = findUserById(id)
-        val deletedUser = user.delete()
+        val deletedUser = user.copy(
+            status = UserStatus.DELETED,
+            deletedAt = LocalDateTime.now()
+        )
+
         return userPort.save(deletedUser)
     }
 
-    override fun isCredentialAvailable(credential: String): Boolean {
+    override fun checkCredentialAvailable(credential: String): Boolean {
         if (userPort.existsByCredential(credential)) {
             throw CustomException(UserExceptionDetails.USER_ALREADY_EXISTS, credential)
         }
@@ -67,4 +85,5 @@ class UserServiceImpl(
     private fun findUserById(id: Long): UserDomain {
         return userPort.findById(id) ?: throw CustomException(UserExceptionDetails.SESSION_USER_NOT_FOUND)
     }
+
 }
