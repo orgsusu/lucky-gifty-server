@@ -3,7 +3,7 @@ package dev.orgsusu.adapterWeb.controller.dto.request
 import jakarta.validation.constraints.Email
 import java.time.LocalDate
 
-data class UpdateUserRequestDto (
+data class UpdateUserRequestDto(
     val phoneNum: String? = null,
 
     @field:Email
