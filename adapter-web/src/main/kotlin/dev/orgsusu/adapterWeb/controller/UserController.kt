@@ -1,5 +1,6 @@
 package dev.orgsusu.adapterWeb.controller
 
+import dev.orgsusu.adapterWeb.controller.dto.request.RegisterRequestDto
 import dev.orgsusu.adapterWeb.controller.dto.request.UpdateUserRequestDto
 import dev.orgsusu.adapterWeb.controller.dto.response.UserResponseDto
 import dev.orgsusu.common.response.ResponseData
@@ -10,10 +11,16 @@ import org.springframework.web.bind.annotation.*
 import dev.orgsusu.domain.port.incoming.UserUseCase
 
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/users")
 class UserController(
     private val userUseCase: UserUseCase
 ) {
+
+    @PostMapping
+    fun createMember(@RequestBody @Valid request: RegisterRequestDto): ResponseEntity<ResponseData<UserResponseDto>> {
+        val user = userUseCase.registerUser(request.toPartialUser())
+        return ResponseData.created(data = UserResponseDto.fromDomain(user))
+    }
 
     @GetMapping("/me")
     fun getCurrentUser(): ResponseEntity<ResponseData<UserResponseDto>> {
