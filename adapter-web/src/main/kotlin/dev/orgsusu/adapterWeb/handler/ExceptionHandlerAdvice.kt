@@ -52,7 +52,7 @@ class ExceptionHandlerAdvice {
     fun httpMediaTypeNotSupportedException(e: HttpMediaTypeNotSupportedException) =
         ResponseError.of(GlobalExceptionDetail.UNSUPPORTED_MEDIA_TYPE, e.contentType, e.supportedMediaTypes.takeIf { it.isNotEmpty() }?.joinToString("', '") ?: "N/A")
 
-    @ExceptionHandler
+    @ExceptionHandler(BadCredentialsException::class)
     fun badCredentialsException(e: BadCredentialsException) =
         ResponseError.of(AuthExceptionDetails.BAD_CREDENTIALS)
 }
