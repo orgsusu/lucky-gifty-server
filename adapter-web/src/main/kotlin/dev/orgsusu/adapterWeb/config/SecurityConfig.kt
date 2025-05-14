@@ -1,9 +1,15 @@
 package dev.orgsusu.adapterWeb.config
 
+import com.fasterxml.jackson.databind.ObjectMapper
 import dev.orgsusu.adapterWeb.handler.ExceptionHandleFilter
 import dev.orgsusu.adapterWeb.security.SecurityLogoutAdapter
+import dev.orgsusu.application.exception.AuthExceptionDetails
+import dev.orgsusu.common.exception.ExceptionDetail
+import dev.orgsusu.common.response.ResponseError
+import jakarta.servlet.http.HttpServletResponse
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
+import org.springframework.http.MediaType
 import org.springframework.security.authentication.AuthenticationManager
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
@@ -16,11 +22,12 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import org.springframework.web.cors.CorsConfiguration
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource
 import org.springframework.web.cors.CorsConfigurationSource
+import java.io.IOException
 
 @Configuration
 @EnableWebSecurity
 class SecurityConfig(
-    private val authenticationConfiguration: AuthenticationConfiguration,
+    private val objectMapper: ObjectMapper,
 ) {
 
     @Bean
@@ -46,6 +53,15 @@ class SecurityConfig(
                     .requestMatchers("/auth/**").anonymous()
                     .anyRequest().authenticated()
             }
+            .exceptionHandling {
+                it
+                    .accessDeniedHandler { _, res, _ ->
+                        res.send(AuthExceptionDetails.UNAUTHORIZED)
+                    }
+                    .authenticationEntryPoint { req, res, _ ->
+                        res.send(AuthExceptionDetails.UNAUTHORIZED)
+                    }
+            }
             .logout {
                 it
                     .logoutUrl("/auth/logout")
@@ -57,8 +73,20 @@ class SecurityConfig(
             .build()
     }
 
+    private fun HttpServletResponse.send(code: ExceptionDetail) {
+        val entity = ResponseError.ofRaw(code)
+        try {
+            status = entity.status
+            contentType = MediaType.APPLICATION_JSON_VALUE
+            characterEncoding = "UTF-8"
+            writer.write(objectMapper.writeValueAsString(entity))
+        } catch (e: IOException) {
+            e.printStackTrace()
+        }
+    }
+
     @Bean
-    fun authenticationManager(): AuthenticationManager =
+    fun authenticationManager(authenticationConfiguration: AuthenticationConfiguration): AuthenticationManager =
         authenticationConfiguration.authenticationManager
 
     @Bean
