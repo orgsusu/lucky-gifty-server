@@ -1,5 +1,6 @@
 package dev.orgsusu.application.service
 
+import dev.orgsusu.application.dto.UserDomainMapper
 import dev.orgsusu.common.exception.CustomException
 import dev.orgsusu.application.exception.UserExceptionDetails
 import dev.orgsusu.domain.model.user.PartialUserDomain
@@ -15,16 +16,20 @@ import java.time.LocalDateTime
 class UserServiceImpl(
     private val userPort: UserPort,
     private val passwordEncoder: PasswordEncoder,
-    private val userContextHolder: UserContextHolder
+    private val userContextHolder: UserContextHolder,
+    private val userDomainMapper: UserDomainMapper,
 ) : UserService {
     override fun registerUser(partialUser: PartialUserDomain): UserDomain {
         checkCredentialAvailable(partialUser.credential)
 
-        val userWithEncodedPassword = partialUser.copy(
+        val passwordEncodedPartialUser = partialUser.copy(
             password = passwordEncoder.encode(partialUser.password)
-        ).toUser()
+        )
+        val fullUserDomain = userDomainMapper.mapToFullDomain(
+            passwordEncodedPartialUser
+        )
 
-        return userPort.save(userWithEncodedPassword)
+        return userPort.save(fullUserDomain)
     }
 
     override fun getUserInfo(id: Long): UserDomain {
@@ -75,5 +80,4 @@ class UserServiceImpl(
     private fun findUserByIdOrThrow(id: Long): UserDomain {
         return userPort.findById(id) ?: throw CustomException(UserExceptionDetails.SESSION_USER_NOT_FOUND)
     }
-
 }
