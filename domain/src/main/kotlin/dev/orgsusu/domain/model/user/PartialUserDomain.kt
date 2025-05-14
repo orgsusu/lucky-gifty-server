@@ -1,6 +1,5 @@
 package dev.orgsusu.domain.model.user
 
-import java.io.Serializable
 import java.time.LocalDate
 
 data class PartialUserDomain(
@@ -9,14 +8,4 @@ data class PartialUserDomain(
     val phoneNum: String,
     val mail: String,
     val birthDate: LocalDate? = null
-) : Serializable {
-    fun toUser(): UserDomain {
-        return UserDomain(
-            credential = credential,
-            password = password,
-            phoneNum = phoneNum,
-            mail = mail,
-            birthDate = birthDate
-        )
-    }
-}
+)
