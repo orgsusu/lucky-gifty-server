@@ -1,8 +1,8 @@
 package dev.orgsusu.adapterWeb.controller
 
 import dev.orgsusu.adapterWeb.controller.dto.request.LoginRequestDto
-import dev.orgsusu.adapterWeb.controller.dto.response.UserResponseDto
 import dev.orgsusu.common.response.ResponseData
+import dev.orgsusu.common.response.ResponseEmpty
 import dev.orgsusu.domain.port.incoming.UserUseCase
 import jakarta.servlet.http.HttpServletRequest
 import jakarta.validation.Valid
@@ -23,9 +23,8 @@ class AuthController(
 
     @PostMapping("/login")
     fun authenticate(
-        @RequestBody @Valid request: LoginRequestDto, servletRequest: HttpServletRequest): ResponseEntity<ResponseData<UserResponseDto>> {
-        val user = userUseCase.authenticateUser(request.credential, request.password)
+        @RequestBody @Valid request: LoginRequestDto, servletRequest: HttpServletRequest): ResponseEntity<ResponseEmpty> {
         servletRequest.login(request.credential, request.password)
-        return ResponseData.ok(data = UserResponseDto.fromDomain(user))
+        return ResponseEmpty.ok()
     }
 }

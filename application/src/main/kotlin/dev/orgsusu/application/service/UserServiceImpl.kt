@@ -27,16 +27,6 @@ class UserServiceImpl(
         return userPort.save(userWithEncodedPassword)
     }
 
-    override fun authenticateUser(credential: String, password: String): UserDomain {
-        val user = userPort.findByCredential(credential) ?: throw CustomException(UserExceptionDetails.BAD_CREDENTIALS)
-
-        if (!passwordEncoder.matches(password, user.password)) {
-            throw CustomException(UserExceptionDetails.BAD_CREDENTIALS)
-        }
-
-        return user
-    }
-
     override fun getUserInfo(id: Long): UserDomain {
         return findUserByIdOrThrow(id)
     }

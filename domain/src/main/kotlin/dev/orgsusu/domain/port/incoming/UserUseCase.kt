@@ -6,7 +6,6 @@ import java.time.LocalDate
 
 interface UserUseCase {
     fun registerUser(partialUser: PartialUserDomain): UserDomain
-    fun authenticateUser(credential: String, password: String): UserDomain
     fun getUserInfo(id: Long): UserDomain
     fun updateUserInfo(
         id: Long,
