@@ -2,6 +2,7 @@ package dev.orgsusu.adapterWeb.controller
 
 import dev.orgsusu.adapterWeb.controller.dto.request.RegisterRequestDto
 import dev.orgsusu.adapterWeb.controller.dto.request.UpdateUserRequestDto
+import dev.orgsusu.adapterWeb.controller.dto.request.toPartialUserDomain
 import dev.orgsusu.adapterWeb.controller.dto.response.UserResponseDto
 import dev.orgsusu.common.response.ResponseData
 import dev.orgsusu.common.response.ResponseEmpty
@@ -18,7 +19,7 @@ class UserController(
 
     @PostMapping
     fun createMember(@RequestBody @Valid request: RegisterRequestDto): ResponseEntity<ResponseData<UserResponseDto>> {
-        val user = userUseCase.registerUser(request.toPartialUser())
+        val user = userUseCase.registerUser(request.toPartialUserDomain())
         return ResponseData.created(data = UserResponseDto.fromDomain(user))
     }
 
