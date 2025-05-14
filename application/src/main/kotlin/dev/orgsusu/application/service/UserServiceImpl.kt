@@ -38,7 +38,7 @@ class UserServiceImpl(
     }
 
     override fun getUserInfo(id: Long): UserDomain {
-        return findUserById(id)
+        return findUserByIdOrThrow(id)
     }
 
     override fun updateUserInfo(
@@ -47,7 +47,7 @@ class UserServiceImpl(
         mail: String?,
         birthDate: LocalDate?
     ): UserDomain {
-        val user = findUserById(id)
+        val user = findUserByIdOrThrow(id)
 
         val updatedUser = user.copy(
             phoneNum = phoneNum ?: user.phoneNum,
@@ -59,7 +59,7 @@ class UserServiceImpl(
     }
 
     override fun deleteUser(id: Long): UserDomain {
-        val user = findUserById(id)
+        val user = findUserByIdOrThrow(id)
         val deletedUser = user.copy(
             status = UserStatus.DELETED,
             deletedAt = LocalDateTime.now()
@@ -82,7 +82,7 @@ class UserServiceImpl(
         return getUserInfo(userId)
     }
 
-    private fun findUserById(id: Long): UserDomain {
+    private fun findUserByIdOrThrow(id: Long): UserDomain {
         return userPort.findById(id) ?: throw CustomException(UserExceptionDetails.SESSION_USER_NOT_FOUND)
     }
 
