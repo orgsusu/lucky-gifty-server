@@ -7,6 +7,7 @@ dependencies{
 	implementation("org.springframework.boot:spring-boot-starter-security")
 	implementation("org.springframework.boot:spring-boot-starter-validation")
 	implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
+	implementation("org.springframework.session:spring-session-core")
 
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	testImplementation("org.springframework.restdocs:spring-restdocs-mockmvc")
