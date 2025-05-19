@@ -8,7 +8,6 @@ dependencies{
 
 	implementation(libs.bundles.spring.boot.persistence)
 	implementation(libs.spring.session.redis)
-	implementation(libs.spring.boot.security)
 	runtimeOnly(libs.mariadb)
 
 	implementation(libs.bundles.konvert.implementation)

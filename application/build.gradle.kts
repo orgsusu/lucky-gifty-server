@@ -6,8 +6,6 @@ dependencies {
     implementation(project(":domain"))
     implementation(project(":common"))
 
-    implementation(libs.spring.boot.core)
-    implementation(libs.spring.boot.security)
     implementation(libs.spring.boot.validation)
 
     implementation(libs.bundles.konvert.implementation)
