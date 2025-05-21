@@ -1,6 +1,6 @@
-package dev.orgsusu.adapterPersistence.database.user
+package dev.orgsusu.adapterPersistence.database.domain.user
 
-import dev.orgsusu.adapterPersistence.database.user.entity.UserEntity
+import dev.orgsusu.adapterPersistence.database.domain.user.entity.UserEntity
 import io.mcarle.konvert.api.Konverter
 import dev.orgsusu.domain.user.model.PartialUserDomain
 import dev.orgsusu.domain.user.model.UserDomain

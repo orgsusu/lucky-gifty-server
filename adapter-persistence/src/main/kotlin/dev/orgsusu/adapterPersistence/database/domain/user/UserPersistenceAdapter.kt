@@ -1,6 +1,6 @@
-package dev.orgsusu.adapterPersistence.database.user
+package dev.orgsusu.adapterPersistence.database.domain.user
 
-import dev.orgsusu.adapterPersistence.database.user.repository.UserRepository
+import dev.orgsusu.adapterPersistence.database.domain.user.repository.UserRepository
 import dev.orgsusu.domain.user.model.UserDomain
 import dev.orgsusu.domain.user.port.outgoing.UserPort
 import org.springframework.stereotype.Component

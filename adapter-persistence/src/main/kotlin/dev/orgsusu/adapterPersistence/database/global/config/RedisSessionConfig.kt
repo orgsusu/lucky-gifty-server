@@ -1,4 +1,4 @@
-package dev.orgsusu.adapterPersistence.database.config
+package dev.orgsusu.adapterPersistence.database.global.config
 
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration

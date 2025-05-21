@@ -1,6 +1,6 @@
-package dev.orgsusu.adapterPersistence.database.user.entity
+package dev.orgsusu.adapterPersistence.database.domain.user.entity
 
-import dev.orgsusu.adapterPersistence.database.common.entity.BaseTimeEntity
+import dev.orgsusu.adapterPersistence.database.global.entity.BaseTimeEntity
 import jakarta.persistence.*
 import dev.orgsusu.domain.user.model.UserStatus
 import java.time.LocalDate

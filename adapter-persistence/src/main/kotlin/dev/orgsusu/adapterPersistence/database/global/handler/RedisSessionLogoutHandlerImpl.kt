@@ -1,4 +1,4 @@
-package dev.orgsusu.adapterPersistence.database.handler
+package dev.orgsusu.adapterPersistence.database.global.handler
 
 import dev.orgsusu.domain.auth.handler.SessionLogoutHandler
 import org.springframework.security.core.context.SecurityContextHolder
