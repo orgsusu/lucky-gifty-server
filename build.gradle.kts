@@ -2,12 +2,12 @@ import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.dsl.KotlinVersion
 
 plugins {
-    alias(libs.plugins.kotlin.jvm) apply false
-    alias(libs.plugins.kotlin.spring) apply false
-    alias(libs.plugins.kotlin.jpa) apply false
-    alias(libs.plugins.spring.boot) apply false
-    alias(libs.plugins.spring.deps) apply false
-    alias(libs.plugins.ksp) apply false
+    alias(libs.plugins.kotlin.jvm)
+    alias(libs.plugins.kotlin.spring)
+    alias(libs.plugins.kotlin.jpa)
+    alias(libs.plugins.spring.boot)
+    alias(libs.plugins.spring.deps)
+    alias(libs.plugins.ksp)
 }
 
 allprojects {
@@ -50,4 +50,12 @@ subprojects {
             apiVersion.set(KotlinVersion.KOTLIN_2_1)
         }
     }
+}
+
+dependencies {
+    implementation(project(":adapter-web"))
+    implementation(project(":adapter-persistence"))
+
+    implementation(libs.spring.boot.core)
+    implementation(libs.spring.data.jpa)
 }
