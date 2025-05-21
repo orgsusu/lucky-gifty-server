@@ -1,6 +1,6 @@
-package dev.orgsusu.application.service
+package dev.orgsusu.application.domain.user.service
 
-import dev.orgsusu.application.dto.UserDomainMapper
+import dev.orgsusu.application.domain.user.dto.UserDomainMapper
 import dev.orgsusu.common.exception.CustomException
 import dev.orgsusu.application.domain.user.exception.UserExceptionDetails
 import dev.orgsusu.domain.user.model.PartialUserDomain

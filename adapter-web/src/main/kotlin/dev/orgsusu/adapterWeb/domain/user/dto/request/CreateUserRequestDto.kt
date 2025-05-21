@@ -1,13 +1,13 @@
-package dev.orgsusu.adapterWeb.controller.dto.request
+package dev.orgsusu.adapterWeb.domain.user.dto.request
 
 import jakarta.validation.constraints.Email
 import jakarta.validation.constraints.NotBlank
-import dev.orgsusu.domain.model.user.PartialUserDomain
+import dev.orgsusu.domain.user.model.PartialUserDomain
 import io.mcarle.konvert.api.KonvertTo
 import java.time.LocalDate
 
 @KonvertTo(PartialUserDomain::class)
-data class RegisterRequestDto(
+data class CreateUserRequestDto(
     @field:NotBlank
     val credential: String,
 

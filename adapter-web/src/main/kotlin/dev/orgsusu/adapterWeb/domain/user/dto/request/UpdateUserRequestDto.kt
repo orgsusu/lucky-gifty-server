@@ -1,4 +1,4 @@
-package dev.orgsusu.adapterWeb.controller.dto.request
+package dev.orgsusu.adapterWeb.domain.user.dto.request
 
 import jakarta.validation.constraints.Email
 import java.time.LocalDate

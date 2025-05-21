@@ -1,9 +1,7 @@
-package dev.orgsusu.adapterWeb.controller
+package dev.orgsusu.adapterWeb.domain.user.controller
 
-import dev.orgsusu.adapterWeb.controller.dto.request.RegisterRequestDto
-import dev.orgsusu.adapterWeb.controller.dto.request.UpdateUserRequestDto
-import dev.orgsusu.adapterWeb.controller.dto.request.toPartialUserDomain
-import dev.orgsusu.adapterWeb.controller.dto.response.UserResponseDto
+import dev.orgsusu.adapterWeb.domain.user.dto.request.*
+import dev.orgsusu.adapterWeb.domain.user.dto.response.*
 import dev.orgsusu.common.response.ResponseData
 import dev.orgsusu.common.response.ResponseEmpty
 import jakarta.validation.Valid
@@ -16,17 +14,16 @@ import dev.orgsusu.domain.user.port.incoming.UserUseCase
 class UserController(
     private val userUseCase: UserUseCase
 ) {
-
     @PostMapping
-    fun createMember(@RequestBody @Valid request: RegisterRequestDto): ResponseEntity<ResponseData<UserResponseDto>> {
+    fun createMember(@RequestBody @Valid request: CreateUserRequestDto): ResponseEntity<ResponseData<UserResponseDto>> {
         val user = userUseCase.registerUser(request.toPartialUserDomain())
-        return ResponseData.created(data = UserResponseDto.fromDomain(user))
+        return ResponseData.created(data = UserResponseDto.Companion.fromUserDomain(user))
     }
 
     @GetMapping("/me")
     fun getCurrentUser(): ResponseEntity<ResponseData<UserResponseDto>> {
         val user = userUseCase.getCurrentUser()
-        return ResponseData.ok(data = UserResponseDto.fromDomain(user))
+        return ResponseData.ok(data = UserResponseDto.Companion.fromUserDomain(user))
     }
 
     @PutMapping("/me")
@@ -38,7 +35,7 @@ class UserController(
             mail = request.mail,
             birthDate = request.birthDate
         )
-        return ResponseData.ok(data = UserResponseDto.fromDomain(updatedUser))
+        return ResponseData.ok(data = UserResponseDto.Companion.fromUserDomain(updatedUser))
     }
 
     @DeleteMapping("/me")

@@ -1,4 +1,4 @@
-package dev.orgsusu.application.service
+package dev.orgsusu.application.domain.user.service
 
 interface UserContextHolder {
     fun getCurrentUserId(): Long?
