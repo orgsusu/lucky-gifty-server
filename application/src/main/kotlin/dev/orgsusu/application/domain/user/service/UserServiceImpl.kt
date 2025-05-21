@@ -2,11 +2,11 @@ package dev.orgsusu.application.service
 
 import dev.orgsusu.application.dto.UserDomainMapper
 import dev.orgsusu.common.exception.CustomException
-import dev.orgsusu.application.exception.UserExceptionDetails
-import dev.orgsusu.domain.model.user.PartialUserDomain
-import dev.orgsusu.domain.model.user.UserDomain
-import dev.orgsusu.domain.model.user.UserStatus
-import dev.orgsusu.domain.port.outgoing.UserPort
+import dev.orgsusu.application.domain.user.exception.UserExceptionDetails
+import dev.orgsusu.domain.user.model.PartialUserDomain
+import dev.orgsusu.domain.user.model.UserDomain
+import dev.orgsusu.domain.user.model.UserStatus
+import dev.orgsusu.domain.user.port.outgoing.UserPort
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Service
 import java.time.LocalDate

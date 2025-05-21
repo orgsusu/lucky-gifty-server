@@ -2,8 +2,8 @@ package dev.orgsusu.adapterPersistence.database.user
 
 import dev.orgsusu.adapterPersistence.database.user.entity.UserEntity
 import io.mcarle.konvert.api.Konverter
-import dev.orgsusu.domain.model.user.PartialUserDomain
-import dev.orgsusu.domain.model.user.UserDomain
+import dev.orgsusu.domain.user.model.PartialUserDomain
+import dev.orgsusu.domain.user.model.UserDomain
 import io.mcarle.konvert.injector.spring.KComponent
 
 @Konverter

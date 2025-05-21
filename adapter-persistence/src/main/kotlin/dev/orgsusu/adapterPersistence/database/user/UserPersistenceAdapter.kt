@@ -1,9 +1,9 @@
 package dev.orgsusu.adapterPersistence.database.user
 
 import dev.orgsusu.adapterPersistence.database.user.repository.UserRepository
-import dev.orgsusu.domain.model.user.UserDomain
+import dev.orgsusu.domain.user.model.UserDomain
+import dev.orgsusu.domain.user.port.outgoing.UserPort
 import org.springframework.stereotype.Component
-import dev.orgsusu.domain.port.outgoing.UserPort
 
 @Component
 class UserPersistenceAdapter(

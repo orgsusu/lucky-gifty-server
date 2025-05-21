@@ -1,6 +1,6 @@
 package dev.orgsusu.adapterWeb.global.security
 
-import dev.orgsusu.domain.model.user.UserDomain
+import dev.orgsusu.domain.user.model.UserDomain
 import org.springframework.security.core.GrantedAuthority
 import org.springframework.security.core.userdetails.UserDetails
 

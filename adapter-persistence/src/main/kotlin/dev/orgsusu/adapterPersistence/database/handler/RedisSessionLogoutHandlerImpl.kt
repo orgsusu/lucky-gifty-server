@@ -1,6 +1,6 @@
 package dev.orgsusu.adapterPersistence.database.handler
 
-import dev.orgsusu.domain.handler.SessionLogoutHandler
+import dev.orgsusu.domain.auth.handler.SessionLogoutHandler
 import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.session.data.redis.RedisIndexedSessionRepository
 import org.springframework.stereotype.Component

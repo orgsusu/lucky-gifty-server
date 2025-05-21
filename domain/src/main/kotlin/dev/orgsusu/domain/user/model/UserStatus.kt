@@ -1,4 +1,4 @@
-package dev.orgsusu.domain.model.user
+package dev.orgsusu.domain.user.model
 
 enum class UserStatus {
     ACTIVE, INACTIVE, DELETED

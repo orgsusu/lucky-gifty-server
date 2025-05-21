@@ -1,6 +1,6 @@
 package dev.orgsusu.adapterWeb.global.security
 
-import dev.orgsusu.domain.handler.SessionLogoutHandler
+import dev.orgsusu.domain.auth.handler.SessionLogoutHandler
 import jakarta.servlet.http.HttpServletRequest
 import jakarta.servlet.http.HttpServletResponse
 import org.springframework.security.core.Authentication

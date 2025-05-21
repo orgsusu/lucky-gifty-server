@@ -3,7 +3,7 @@ package dev.orgsusu.adapterWeb.global.security
 import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.security.core.userdetails.UserDetailsService
 import org.springframework.stereotype.Service
-import dev.orgsusu.domain.port.outgoing.UserPort
+import dev.orgsusu.domain.user.port.outgoing.UserPort
 import org.springframework.security.core.userdetails.UsernameNotFoundException
 
 @Service

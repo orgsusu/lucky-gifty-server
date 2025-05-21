@@ -1,7 +1,7 @@
-package dev.orgsusu.domain.port.incoming
+package dev.orgsusu.domain.user.port.incoming
 
-import dev.orgsusu.domain.model.user.PartialUserDomain
-import dev.orgsusu.domain.model.user.UserDomain
+import dev.orgsusu.domain.user.model.PartialUserDomain
+import dev.orgsusu.domain.user.model.UserDomain
 import java.time.LocalDate
 
 interface UserUseCase {

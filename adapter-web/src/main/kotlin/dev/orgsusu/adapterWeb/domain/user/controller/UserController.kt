@@ -9,7 +9,7 @@ import dev.orgsusu.common.response.ResponseEmpty
 import jakarta.validation.Valid
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
-import dev.orgsusu.domain.port.incoming.UserUseCase
+import dev.orgsusu.domain.user.port.incoming.UserUseCase
 
 @RestController
 @RequestMapping("/users")

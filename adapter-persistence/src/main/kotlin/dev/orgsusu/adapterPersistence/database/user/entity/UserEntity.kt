@@ -2,7 +2,7 @@ package dev.orgsusu.adapterPersistence.database.user.entity
 
 import dev.orgsusu.adapterPersistence.database.common.entity.BaseTimeEntity
 import jakarta.persistence.*
-import dev.orgsusu.domain.model.user.UserStatus
+import dev.orgsusu.domain.user.model.UserStatus
 import java.time.LocalDate
 import java.time.LocalDateTime
 

@@ -1,7 +1,7 @@
 package dev.orgsusu.application.dto
 
-import dev.orgsusu.domain.model.user.PartialUserDomain
-import dev.orgsusu.domain.model.user.UserDomain
+import dev.orgsusu.domain.user.model.PartialUserDomain
+import dev.orgsusu.domain.user.model.UserDomain
 import io.mcarle.konvert.api.Konverter
 import io.mcarle.konvert.injector.spring.KComponent
 

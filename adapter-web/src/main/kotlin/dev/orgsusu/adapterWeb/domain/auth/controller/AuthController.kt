@@ -3,7 +3,7 @@ package dev.orgsusu.adapterWeb.domain.auth.controller
 import dev.orgsusu.adapterWeb.domain.auth.dto.request.*
 import dev.orgsusu.common.response.ResponseData
 import dev.orgsusu.common.response.ResponseEmpty
-import dev.orgsusu.domain.port.incoming.UserUseCase
+import dev.orgsusu.domain.user.port.incoming.UserUseCase
 import jakarta.servlet.http.HttpServletRequest
 import jakarta.validation.Valid
 import org.springframework.http.ResponseEntity

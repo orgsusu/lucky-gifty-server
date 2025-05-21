@@ -1,4 +1,4 @@
-package dev.orgsusu.application.exception
+package dev.orgsusu.application.domain.user.exception
 
 import dev.orgsusu.common.exception.ExceptionDetail
 import org.springframework.http.HttpStatus
