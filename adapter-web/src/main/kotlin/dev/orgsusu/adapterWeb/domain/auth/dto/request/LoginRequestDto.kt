@@ -1,4 +1,4 @@
-package dev.orgsusu.adapterWeb.controller.dto.request
+package dev.orgsusu.adapterWeb.domain.auth.dto.request
 
 import jakarta.validation.constraints.NotBlank
 
