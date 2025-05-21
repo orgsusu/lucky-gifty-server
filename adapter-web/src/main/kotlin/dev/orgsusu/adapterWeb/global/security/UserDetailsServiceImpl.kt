@@ -1,4 +1,4 @@
-package dev.orgsusu.adapterWeb.security
+package dev.orgsusu.adapterWeb.global.security
 
 import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.security.core.userdetails.UserDetailsService

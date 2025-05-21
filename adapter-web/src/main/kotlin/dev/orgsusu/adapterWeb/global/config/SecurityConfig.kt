@@ -1,9 +1,9 @@
-package dev.orgsusu.adapterWeb.config
+package dev.orgsusu.adapterWeb.global.config
 
 import com.fasterxml.jackson.databind.ObjectMapper
-import dev.orgsusu.adapterWeb.handler.ExceptionHandleFilter
-import dev.orgsusu.adapterWeb.security.SecurityLogoutAdapter
-import dev.orgsusu.application.exception.AuthExceptionDetails
+import dev.orgsusu.adapterWeb.global.handler.ExceptionHandleFilter
+import dev.orgsusu.adapterWeb.global.security.SecurityLogoutAdapter
+import dev.orgsusu.application.domain.auth.exception.AuthExceptionDetails
 import dev.orgsusu.common.exception.ExceptionDetail
 import dev.orgsusu.common.response.ResponseError
 import jakarta.servlet.http.HttpServletResponse

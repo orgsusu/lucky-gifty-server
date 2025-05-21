@@ -1,8 +1,8 @@
-package dev.orgsusu.adapterWeb.security
+package dev.orgsusu.adapterWeb.global.security
 
+import dev.orgsusu.application.domain.user.service.UserContextHolder
 import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.stereotype.Component
-import dev.orgsusu.application.service.UserContextHolder
 
 @Component
 class SecurityContextUserHolder : UserContextHolder {

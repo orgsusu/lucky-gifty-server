@@ -1,4 +1,4 @@
-package dev.orgsusu.adapterWeb.handler
+package dev.orgsusu.adapterWeb.global.handler
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import dev.orgsusu.common.exception.CustomException

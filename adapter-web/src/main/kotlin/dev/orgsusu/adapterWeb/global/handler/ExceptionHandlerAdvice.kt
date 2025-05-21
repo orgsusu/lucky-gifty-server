@@ -1,6 +1,6 @@
-package dev.orgsusu.adapterWeb.handler
+package dev.orgsusu.adapterWeb.global.handler
 
-import dev.orgsusu.application.exception.AuthExceptionDetails
+import dev.orgsusu.application.domain.auth.exception.AuthExceptionDetails
 import dev.orgsusu.common.exception.CustomException
 import dev.orgsusu.common.exception.GlobalExceptionDetail
 import org.slf4j.LoggerFactory
