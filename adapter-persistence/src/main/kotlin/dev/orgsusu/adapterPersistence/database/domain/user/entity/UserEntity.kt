@@ -19,10 +19,10 @@ class UserEntity(
     @Column
     var password: String,
 
-    @Column(unique = true)
+    @Column(unique = true, nullable = true)
     var phoneNum: String,
 
-    @Column(unique = true)
+    @Column(unique = true, nullable = true)
     var mail: String,
 
     @Column(nullable = true)
