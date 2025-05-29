@@ -77,7 +77,7 @@ class UserServiceImpl(
         return getUserInfo(userId)
     }
 
-    private fun findUserByIdOrThrow(id: Long): UserDomain {
+    override fun findUserByIdOrThrow(id: Long): UserDomain {
         return userPort.findById(id) ?: throw CustomException(UserExceptionDetails.SESSION_USER_NOT_FOUND)
     }
 }
