@@ -18,3 +18,7 @@ spring:
       port: ${REDIS_PORT:6379}
 server:
   shutdown: graceful
+
+toss:
+  client-id: ${TOSS_ACCESS_KEY}
+  client-secret: ${TOSS_SECRET_KEY}
