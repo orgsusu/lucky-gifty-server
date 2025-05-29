@@ -55,6 +55,7 @@ subprojects {
 dependencies {
     implementation(project(":adapter-web"))
     implementation(project(":adapter-persistence"))
+    implementation(project(":adapter-toss"))
 
     implementation(libs.spring.boot.core)
     implementation(libs.spring.data.jpa)
