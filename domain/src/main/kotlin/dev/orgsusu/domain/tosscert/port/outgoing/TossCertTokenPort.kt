@@ -1,7 +1,7 @@
 package dev.orgsusu.domain.tosscert.port.outgoing
 
-import dev.orgsusu.domain.tosscert.model.TossCertTokenResponse
+import dev.orgsusu.domain.tosscert.model.TossCertTokenResponseDomain
 
 interface TossCertTokenPort {
-    fun fetchAccessToken(): TossCertTokenResponse?
+    fun fetchAccessToken(): TossCertTokenResponseDomain?
 }

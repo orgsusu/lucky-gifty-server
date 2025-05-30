@@ -1,7 +1,7 @@
 package dev.orgsusu.adapterWeb.domain.tosscert.controller
 
 import dev.orgsusu.common.response.ResponseData
-import dev.orgsusu.domain.tosscert.model.TossCertTokenResponse
+import dev.orgsusu.domain.tosscert.model.TossCertTokenResponseDomain
 import dev.orgsusu.domain.tosscert.port.ingoing.TossCertTokenUseCase
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.GetMapping
@@ -14,7 +14,7 @@ class TossCertController (
     private val tossCertTokenUseCase: TossCertTokenUseCase
 ){
     @GetMapping("/token")
-    fun issueToken():ResponseEntity<ResponseData<TossCertTokenResponse>>{
+    fun issueToken():ResponseEntity<ResponseData<TossCertTokenResponseDomain>>{
         val token = tossCertTokenUseCase.issueAccessToken()
         return ResponseData.ok(data = token)
     }

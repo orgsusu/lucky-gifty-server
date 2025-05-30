@@ -17,7 +17,7 @@ class TossClient(
     @Value("\${toss.client-secret}") private val clientSecret: String
 ) : TossCertTokenPort {
 
-    override fun fetchAccessToken(): TossCertTokenResponse? {
+    override fun fetchAccessToken(): TossCertTokenResponseDomain? {
         val formData: MultiValueMap<String, String> = LinkedMultiValueMap<String, String>().apply {
             add("grant_type", "client_credentials")
             add("client_id", clientId)
