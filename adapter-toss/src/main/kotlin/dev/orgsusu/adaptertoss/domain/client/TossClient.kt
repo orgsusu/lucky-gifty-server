@@ -1,6 +1,8 @@
 package dev.orgsusu.adaptertoss.domain.client
 
-import dev.orgsusu.domain.tosscert.model.TossCertTokenResponse
+import dev.orgsusu.adaptertoss.domain.dto.TossCertTokenResponseDto
+import dev.orgsusu.adaptertoss.domain.mapper.TossCertMapper
+import dev.orgsusu.domain.tosscert.model.TossCertTokenResponseDomain
 import dev.orgsusu.domain.tosscert.port.outgoing.TossCertTokenPort
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.http.MediaType
@@ -12,7 +14,8 @@ import org.springframework.web.reactive.function.client.WebClient
 
 @Component
 class TossClient(
-    private val webClient: WebClient,
+    private val tossWebClient: WebClient,
+    private val tossCertMapper: TossCertMapper,
     @Value("\${toss.client-id}") private val clientId: String,
     @Value("\${toss.client-secret}") private val clientSecret: String
 ) : TossCertTokenPort {
@@ -25,7 +28,7 @@ class TossClient(
             add("scope", "ca")
         }
 
-        return webClient.post()
+        val request = tossWebClient.post()
             .uri("https://oauth2.cert.toss.im/token")
             .contentType(MediaType.APPLICATION_FORM_URLENCODED)
             .body(BodyInserters.fromFormData(formData))
