@@ -33,8 +33,10 @@ class TossClient(
             .contentType(MediaType.APPLICATION_FORM_URLENCODED)
             .body(BodyInserters.fromFormData(formData))
             .retrieve()
-            .bodyToMono(TossCertTokenResponse::class.java)
+            .bodyToMono(TossCertTokenResponseDto::class.java)
             .block()
+
+        return tossCertMapper.dtoToDomain(request)
     }
 
 }
