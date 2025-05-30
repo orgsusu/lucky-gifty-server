@@ -51,6 +51,7 @@ class SecurityConfig(
                 it
                     .requestMatchers("/auth/logout").authenticated()
                     .requestMatchers("/auth/**").anonymous()
+                    .requestMatchers("/toss/**").anonymous()
                     .anyRequest().authenticated()
             }
             .exceptionHandling {
