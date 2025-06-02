@@ -1,4 +1,4 @@
-package dev.orgsusu.adaptertoss.domain.dto
+package dev.orgsusu.adaptertoss.domain.dto.response
 
 import com.fasterxml.jackson.annotation.JsonProperty
 

@@ -6,7 +6,7 @@ import org.springframework.http.HttpStatus
 enum class TossCertExceptionDetails(
     override val message: String, override val status: HttpStatus
 ) : ExceptionDetail {
-    FAIL_TO_FETCH("access Token을 받아오는데 실패했습니다", HttpStatus.BAD_REQUEST),
+    FAIL_TO_FETCH("값을 받아오는데 실패했습니다", HttpStatus.BAD_REQUEST),
     ;
 
     override val code = name

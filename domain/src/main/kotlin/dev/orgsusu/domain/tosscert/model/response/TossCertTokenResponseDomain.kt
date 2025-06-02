@@ -1,4 +1,4 @@
-package dev.orgsusu.domain.tosscert.model
+package dev.orgsusu.domain.tosscert.model.response
 
 data class TossCertTokenResponseDomain(
     val accessToken: String,

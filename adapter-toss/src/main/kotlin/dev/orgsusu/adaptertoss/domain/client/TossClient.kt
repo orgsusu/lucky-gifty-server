@@ -16,15 +16,15 @@ import org.springframework.web.reactive.function.client.WebClient
 class TossClient(
     private val tossWebClient: WebClient,
     private val tossCertMapper: TossCertMapper,
-    @Value("\${toss.client-id}") private val clientId: String,
-    @Value("\${toss.client-secret}") private val clientSecret: String
-) : TossCertTokenPort {
+    private val tossCertProperties: TossCertProperties
+) : TossCertPort {
 
-    override fun fetchAccessToken(): TossCertTokenResponseDomain? {
-        val formData: MultiValueMap<String, String> = LinkedMultiValueMap<String, String>().apply {
+    override fun requestAccessToken(): TossCertTokenResponseDomain? {
+
+        val getTokenFormData: MultiValueMap<String, String> = LinkedMultiValueMap<String, String>().apply {
             add("grant_type", "client_credentials")
-            add("client_id", clientId)
-            add("client_secret", clientSecret)
+            add("client_id", tossCertProperties.clientId)
+            add("client_secret", tossCertProperties.clientSecret)
             add("scope", "ca")
         }
 
@@ -39,4 +39,20 @@ class TossClient(
         return tossCertMapper.dtoToDomain(request)
     }
 
+    override fun requestTxId(): TossCertTxIdSuccessResponseDomain? {
+        val txIdRequestDto = TossCertTxIdRequestDto(
+            requestType = "USER_NONE",
+            requestUrl = "https://cert.toss.im"
+        )
+
+        val request = tossWebClient.post()
+            .uri("https://cert.toss.im/api/v2/sign/user/auth/id/request")
+            .contentType(MediaType.APPLICATION_JSON)
+            .body(BodyInserters.fromValue(txIdRequestDto))
+            .retrieve()
+            .bodyToMono(TossCertTxIdSuccessResponseDomain::class.java)
+            .block()
+
+        return request
+    }
 }
