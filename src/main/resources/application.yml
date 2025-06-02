@@ -22,3 +22,5 @@ server:
 toss:
   client-id: ${TOSS_ACCESS_KEY}
   client-secret: ${TOSS_SECRET_KEY}
+  public-key: ${TOSS_PUBLIC_KEY}
+  private-key: ${TOSS_PRIVATE_KEY}
