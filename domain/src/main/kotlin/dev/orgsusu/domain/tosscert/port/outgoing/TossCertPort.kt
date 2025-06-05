@@ -5,5 +5,5 @@ import dev.orgsusu.domain.tosscert.model.response.TossCertTokenResponseDomain
 
 interface TossCertPort {
     fun requestAccessToken(): TossCertTokenResponseDomain?
-    fun requestTxId(): TossCertTxIdSuccessResponseDomain?
+    fun requestTxId(accessToken: String): TossCertTxIdSuccessResponseDomain?
 }

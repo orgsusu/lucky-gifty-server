@@ -1,10 +1,12 @@
 package dev.orgsusu.adaptertoss.domain.client
 
-import dev.orgsusu.adaptertoss.domain.dto.TossCertTokenResponseDto
+import dev.orgsusu.adaptertoss.domain.dto.request.TossCertTxIdRequestDto
+import dev.orgsusu.adaptertoss.domain.dto.response.TossCertTokenResponseDto
 import dev.orgsusu.adaptertoss.domain.mapper.TossCertMapper
-import dev.orgsusu.domain.tosscert.model.TossCertTokenResponseDomain
-import dev.orgsusu.domain.tosscert.port.outgoing.TossCertTokenPort
-import org.springframework.beans.factory.annotation.Value
+import dev.orgsusu.adaptertoss.global.properties.TossCertProperties
+import dev.orgsusu.domain.tosscert.model.response.TossCertTokenResponseDomain
+import dev.orgsusu.domain.tosscert.model.response.TossCertTxIdSuccessResponseDomain
+import dev.orgsusu.domain.tosscert.port.outgoing.TossCertPort
 import org.springframework.http.MediaType
 import org.springframework.stereotype.Component
 import org.springframework.util.LinkedMultiValueMap
@@ -31,7 +33,7 @@ class TossClient(
         val request = tossWebClient.post()
             .uri("https://oauth2.cert.toss.im/token")
             .contentType(MediaType.APPLICATION_FORM_URLENCODED)
-            .body(BodyInserters.fromFormData(formData))
+            .body(BodyInserters.fromFormData(getTokenFormData))
             .retrieve()
             .bodyToMono(TossCertTokenResponseDto::class.java)
             .block()
@@ -39,7 +41,7 @@ class TossClient(
         return tossCertMapper.dtoToDomain(request)
     }
 
-    override fun requestTxId(): TossCertTxIdSuccessResponseDomain? {
+    override fun requestTxId(accessToken: String): TossCertTxIdSuccessResponseDomain? {
         val txIdRequestDto = TossCertTxIdRequestDto(
             requestType = "USER_NONE",
             requestUrl = "https://cert.toss.im"
@@ -48,6 +50,7 @@ class TossClient(
         val request = tossWebClient.post()
             .uri("https://cert.toss.im/api/v2/sign/user/auth/id/request")
             .contentType(MediaType.APPLICATION_JSON)
+            .header("Authorization", "Bearer $accessToken")
             .body(BodyInserters.fromValue(txIdRequestDto))
             .retrieve()
             .bodyToMono(TossCertTxIdSuccessResponseDomain::class.java)
