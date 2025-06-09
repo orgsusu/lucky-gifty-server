@@ -2,7 +2,7 @@ package dev.orgsusu.application.domain.tosscert.service
 
 import dev.orgsusu.application.domain.tosscert.exception.TossCertExceptionDetails
 import dev.orgsusu.common.exception.CustomException
-import dev.orgsusu.domain.tosscert.model.response.TossCertTxIdSuccessResponseDomain
+import dev.orgsusu.domain.tosscert.model.wrapper.TossCertTxIdResponseWrapper
 import dev.orgsusu.domain.tosscert.port.outgoing.TossCertPort
 import dev.orgsusu.domain.tosscert.port.outgoing.TossCertTokenPort
 import org.springframework.stereotype.Service
@@ -20,7 +20,7 @@ class TossCertServiceImpl(
             } ?: throw CustomException(TossCertExceptionDetails.FAIL_TO_FETCH)
     }
 
-    override fun getTxId(): TossCertTxIdSuccessResponseDomain {
+    override fun getTxId(): TossCertTxIdResponseWrapper {
         return tossCertPort.requestTxId(getAccessToken())
             ?: throw CustomException(TossCertExceptionDetails.FAIL_TO_FETCH)
     }

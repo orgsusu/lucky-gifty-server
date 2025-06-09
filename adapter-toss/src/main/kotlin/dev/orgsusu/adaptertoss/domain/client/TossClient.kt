@@ -2,10 +2,10 @@ package dev.orgsusu.adaptertoss.domain.client
 
 import dev.orgsusu.adaptertoss.domain.dto.request.TossCertTxIdRequestDto
 import dev.orgsusu.adaptertoss.domain.dto.response.TossCertTokenResponseDto
+import dev.orgsusu.domain.tosscert.model.wrapper.TossCertTxIdResponseWrapper
 import dev.orgsusu.adaptertoss.domain.mapper.TossCertMapper
 import dev.orgsusu.adaptertoss.global.properties.TossCertProperties
 import dev.orgsusu.domain.tosscert.model.response.TossCertTokenResponseDomain
-import dev.orgsusu.domain.tosscert.model.response.TossCertTxIdSuccessResponseDomain
 import dev.orgsusu.domain.tosscert.port.outgoing.TossCertPort
 import org.springframework.http.MediaType
 import org.springframework.stereotype.Component
@@ -41,7 +41,7 @@ class TossClient(
         return tossCertMapper.dtoToDomain(request)
     }
 
-    override fun requestTxId(accessToken: String): TossCertTxIdSuccessResponseDomain? {
+    override fun requestTxId(accessToken: String): TossCertTxIdResponseWrapper? {
         val txIdRequestDto = TossCertTxIdRequestDto(
             requestType = "USER_NONE",
             requestUrl = "https://cert.toss.im"
@@ -53,7 +53,7 @@ class TossClient(
             .header("Authorization", "Bearer $accessToken")
             .body(BodyInserters.fromValue(txIdRequestDto))
             .retrieve()
-            .bodyToMono(TossCertTxIdSuccessResponseDomain::class.java)
+            .bodyToMono(TossCertTxIdResponseWrapper::class.java)
             .block()
 
         return request
