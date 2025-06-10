@@ -27,6 +27,8 @@ spring-test-security = { group = "org.springframework.security", name = "spring-
 
 junit-platform = { group = "org.junit.platform", name = "junit-platform-launcher" }
 
+kotlin-reflect = { group = "org.jetbrains.kotlin", name = "kotlin-reflect" }
+
 mariadb = { group = "org.mariadb.jdbc", name = "mariadb-java-client" }
 
 jackson-core = { group = "com.fasterxml.jackson.core", name = "jackson-core" }
