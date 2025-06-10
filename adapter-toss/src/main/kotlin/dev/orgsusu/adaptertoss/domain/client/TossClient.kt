@@ -6,7 +6,7 @@ import dev.orgsusu.adaptertoss.domain.dto.request.TossCertTxIdRequestDto
 import dev.orgsusu.adaptertoss.domain.dto.response.TossCertTokenResponseDto
 import dev.orgsusu.adaptertoss.domain.mapper.TossCertMapper
 import dev.orgsusu.adaptertoss.global.properties.TossCertProperties
-import dev.orgsusu.domain.tosscert.model.response.TossCertTokenResponseDomain
+import dev.orgsusu.domain.tosscert.model.response.token.TossCertTokenResponseDomain
 import dev.orgsusu.domain.tosscert.model.wrapper.TossCertResultResponseWrapper
 import dev.orgsusu.domain.tosscert.model.wrapper.TossCertStatusResponseWrapper
 import dev.orgsusu.domain.tosscert.model.wrapper.TossCertTxIdResponseWrapper
@@ -58,6 +58,44 @@ class TossClient(
             .body(BodyInserters.fromValue(txIdRequestDto))
             .retrieve()
             .bodyToMono(TossCertTxIdResponseWrapper::class.java)
+            .block()
+
+        return request
+    }
+
+    override fun requestStatus(accessToken: String, txId: String): TossCertStatusResponseWrapper? {
+        val statusRequestDto = TossCertStatusRequestDto(
+            txId = txId
+        )
+
+        val request = tossCertClient.post()
+            .uri("/api/v2/sign/user/auth/id/status")
+            .contentType(MediaType.APPLICATION_JSON)
+            .header("Authorization", "Bearer $accessToken")
+            .body(BodyInserters.fromValue(statusRequestDto))
+            .retrieve()
+            .bodyToMono(TossCertStatusResponseWrapper::class.java)
+            .block()
+
+        return request
+    }
+
+    override fun requestResult(
+        accessToken: String,
+        txId: String,
+        sessionKey: String
+    ): TossCertResultResponseWrapper? {
+        val resultRequestDto = TossCertResultRequestDto(
+            txId = txId,
+            sessionKey = sessionKey
+        )
+        val request = tossCertClient.post()
+            .uri("/api/v2/sign/user/auth/id/result")
+            .contentType(MediaType.APPLICATION_JSON)
+            .header("Authorization", "Bearer $accessToken")
+            .body(BodyInserters.fromValue(resultRequestDto))
+            .retrieve()
+            .bodyToMono(TossCertResultResponseWrapper::class.java)
             .block()
 
         return request

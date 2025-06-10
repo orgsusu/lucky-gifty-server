@@ -1,4 +1,4 @@
-package dev.orgsusu.domain.tosscert.model.response
+package dev.orgsusu.domain.tosscert.model.response.txid
 
 data class TossCertTxIdSuccessResponseDomain(
     val txId: String,
