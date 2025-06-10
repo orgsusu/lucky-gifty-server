@@ -4,10 +4,11 @@ import dev.orgsusu.adaptertoss.domain.dto.request.TossCertResultRequestDto
 import dev.orgsusu.adaptertoss.domain.dto.request.TossCertStatusRequestDto
 import dev.orgsusu.adaptertoss.domain.dto.request.TossCertTxIdRequestDto
 import dev.orgsusu.adaptertoss.domain.dto.response.TossCertTokenResponseDto
+import dev.orgsusu.adaptertoss.domain.dto.wrapper.TossCertResultWrapper
 import dev.orgsusu.adaptertoss.domain.mapper.TossCertMapper
 import dev.orgsusu.adaptertoss.global.properties.TossCertProperties
 import dev.orgsusu.domain.tosscert.model.response.token.TossCertTokenResponseDomain
-import dev.orgsusu.domain.tosscert.model.wrapper.TossCertResultResponseWrapper
+import dev.orgsusu.domain.tosscert.model.wrapper.TossCertResultResponseDomainWrapper
 import dev.orgsusu.domain.tosscert.model.wrapper.TossCertStatusResponseWrapper
 import dev.orgsusu.domain.tosscert.model.wrapper.TossCertTxIdResponseWrapper
 import dev.orgsusu.domain.tosscert.port.outgoing.TossCertPort
@@ -17,6 +18,7 @@ import org.springframework.util.LinkedMultiValueMap
 import org.springframework.util.MultiValueMap
 import org.springframework.web.reactive.function.BodyInserters
 import org.springframework.web.reactive.function.client.WebClient
+import org.springframework.web.reactive.function.client.bodyToMono
 
 @Component
 class TossClient(
@@ -84,7 +86,7 @@ class TossClient(
         accessToken: String,
         txId: String,
         sessionKey: String
-    ): TossCertResultResponseWrapper? {
+    ): TossCertResultResponseDomainWrapper? {
         val resultRequestDto = TossCertResultRequestDto(
             txId = txId,
             sessionKey = sessionKey
@@ -94,10 +96,9 @@ class TossClient(
             .contentType(MediaType.APPLICATION_JSON)
             .header("Authorization", "Bearer $accessToken")
             .body(BodyInserters.fromValue(resultRequestDto))
-            .retrieve()
-            .bodyToMono(TossCertResultResponseWrapper::class.java)
+            .exchangeToMono { it.bodyToMono<TossCertResultWrapper>() }
             .block()
 
-        return request
+        return tossCertMapper.toDomain(request)
     }
 }
