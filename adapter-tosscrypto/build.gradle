@@ -1,0 +1,9 @@
+dependencies{
+	implementation(project(":domain"))
+	implementation(project(":common"))
+
+	implementation(libs.toss.cert)
+
+	testImplementation(libs.bundles.test)
+	testRuntimeOnly(libs.junit.platform)
+}
