@@ -6,7 +6,7 @@ import dev.orgsusu.domain.tosscert.model.response.result.TossCertResultSuccessEn
 import dev.orgsusu.domain.tosscert.model.wrapper.TossCertResultResponseDomainWrapper
 import dev.orgsusu.domain.tosscert.model.wrapper.TossCertStatusResponseWrapper
 import dev.orgsusu.domain.tosscert.model.wrapper.TossCertTxIdResponseWrapper
-import dev.orgsusu.domain.tosscert.port.ingoing.TossCertSessionUseCase
+import dev.orgsusu.domain.tosscert.port.outgoing.TossCertSessionPort
 import dev.orgsusu.domain.tosscert.port.outgoing.TossDecryptorPort
 import dev.orgsusu.domain.tosscert.port.outgoing.TossCertPort
 import dev.orgsusu.domain.tosscert.port.outgoing.TossCertTokenPort
@@ -16,7 +16,7 @@ import org.springframework.stereotype.Service
 class TossCertServiceImpl(
     private val tossCertPort: TossCertPort,
     private val tossCertTokenPort: TossCertTokenPort,
-    private val tossCertSessionUseCase: TossCertSessionUseCase,
+    private val tossCertSessionPort: TossCertSessionPort,
     private val tossDecryptorPort: TossDecryptorPort,
 ) : TossCertService {
     fun getAccessToken(): String {
@@ -40,7 +40,7 @@ class TossCertServiceImpl(
 
     override fun getResult(txId: String): TossCertResultResponseDomainWrapper {
         val token = getAccessToken()
-        val session = tossCertSessionUseCase.generateSession()
+        val session = tossCertSessionPort.generateSession()
         val result = tossCertPort.requestResult(token, txId, session.sessionKey)
             ?: throw CustomException(TossCertExceptionDetails.FAIL_TO_FETCH)
         val decryptedSuccess = result.success?.let {

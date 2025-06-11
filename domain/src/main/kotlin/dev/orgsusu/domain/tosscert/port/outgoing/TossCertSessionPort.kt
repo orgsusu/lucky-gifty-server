@@ -1,7 +1,7 @@
-package dev.orgsusu.domain.tosscert.port.ingoing
+package dev.orgsusu.domain.tosscert.port.outgoing
 
 import dev.orgsusu.domain.tosscert.model.TossCertSessionInfo
 
-interface TossCertSessionUseCase{
+interface TossCertSessionPort{
     fun generateSession(): TossCertSessionInfo
 }
