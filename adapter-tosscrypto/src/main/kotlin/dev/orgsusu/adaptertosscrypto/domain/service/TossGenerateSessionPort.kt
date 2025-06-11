@@ -2,13 +2,13 @@ package dev.orgsusu.adaptertosscrypto.domain.service
 
 import dev.orgsusu.adaptertosscrypto.global.TossSessionConfig
 import dev.orgsusu.domain.tosscert.model.TossCertSessionInfo
-import dev.orgsusu.domain.tosscert.port.ingoing.TossCertSessionUseCase
+import dev.orgsusu.domain.tosscert.port.outgoing.TossCertSessionPort
 import org.springframework.context.annotation.Configuration
 
 @Configuration
-class TossCryptoServiceImpl(
+class TossGenerateSessionPort(
     private val tossCertSessionGenerator: TossSessionConfig,
-) : TossCertSessionUseCase {
+) : TossCertSessionPort {
 
     override fun generateSession(): TossCertSessionInfo {
         val session = tossCertSessionGenerator.tossCertSessionGenerator().generate()
