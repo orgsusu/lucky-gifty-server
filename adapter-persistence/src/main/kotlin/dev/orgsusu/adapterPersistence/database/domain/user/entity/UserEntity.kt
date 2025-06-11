@@ -20,13 +20,13 @@ class UserEntity(
     var password: String,
 
     @Column(unique = true, nullable = true)
-    var phoneNum: String,
+    var phone: String,
 
     @Column(unique = true, nullable = true)
     var mail: String,
 
     @Column(nullable = true)
-    var birthDate: LocalDate? = null,
+    var birthDay: LocalDate? = null,
 
     @Enumerated(EnumType.STRING)
     @Column

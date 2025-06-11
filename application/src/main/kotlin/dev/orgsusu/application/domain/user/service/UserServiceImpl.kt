@@ -38,16 +38,16 @@ class UserServiceImpl(
 
     override fun updateUserInfo(
         id: Long,
-        phoneNum: String?,
+        phone: String?,
         mail: String?,
-        birthDate: LocalDate?
+        birthDay: LocalDate?
     ): UserDomain {
         val user = findUserByIdOrThrow(id)
 
         val updatedUser = user.copy(
-            phoneNum = phoneNum ?: user.phoneNum,
+            phone = phone ?: user.phone,
             mail = mail ?: user.mail,
-            birthDate = birthDate ?: user.birthDate
+            birthDay = birthDay ?: user.birthDay
         )
 
         return userPort.save(updatedUser)

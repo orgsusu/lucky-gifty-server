@@ -9,9 +9,9 @@ interface UserUseCase {
     fun getUserInfo(id: Long): UserDomain
     fun updateUserInfo(
         id: Long,
-        phoneNum: String? = null,
+        phone: String? = null,
         mail: String? = null,
-        birthDate: LocalDate? = null
+        birthDay: LocalDate? = null
     ): UserDomain
 
     fun deleteUser(id: Long): UserDomain
