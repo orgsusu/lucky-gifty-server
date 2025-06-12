@@ -54,7 +54,7 @@ class TossClient(
         )
 
         val request = tossCertClient.post()
-            .uri("/api/v2/sign/user/auth/id/request")
+            .uri("/api/v2/sign/user/auth/request")
             .contentType(MediaType.APPLICATION_JSON)
             .header("Authorization", "Bearer $accessToken")
             .body(BodyInserters.fromValue(txIdRequestDto))
@@ -71,7 +71,7 @@ class TossClient(
         )
 
         val request = tossCertClient.post()
-            .uri("/api/v2/sign/user/auth/id/status")
+            .uri("/api/v2/sign/user/auth/status")
             .contentType(MediaType.APPLICATION_JSON)
             .header("Authorization", "Bearer $accessToken")
             .body(BodyInserters.fromValue(statusRequestDto))
@@ -92,7 +92,7 @@ class TossClient(
             sessionKey = sessionKey
         )
         val request = tossCertClient.post()
-            .uri("/api/v2/sign/user/auth/id/result")
+            .uri("/api/v2/sign/user/auth/result")
             .contentType(MediaType.APPLICATION_JSON)
             .header("Authorization", "Bearer $accessToken")
             .body(BodyInserters.fromValue(resultRequestDto))
