@@ -51,15 +51,18 @@ class TossCertServiceImpl(
         val success = result.success
         if (success != null) {
             val decryptedSuccess = tossDecryptorPort.decryptAll<TossCertResultSuccessEncryptResponseDomain>(session.session, success)
-            userUseCase.updateUserInfo(
-                id = userUseCase.getCurrentUser().id,
-                phone = decryptedSuccess.phone,
-                mail = decryptedSuccess.email,
-                birthDay = LocalDate.parse(decryptedSuccess.birthday, DateTimeFormatter.BASIC_ISO_DATE)
-            )
+            updateUserWithResult(decryptedSuccess)
         }
-
-
         return result.error
     }
+
+    private fun updateUserWithResult(decryptedSuccess: TossCertResultSuccessEncryptResponseDomain) {
+        userUseCase.updateUserInfo(
+            id = userUseCase.getCurrentUser().id,
+            phone = decryptedSuccess.phone,
+            mail = decryptedSuccess.email,
+            birthDay = LocalDate.parse(decryptedSuccess.birthday, DateTimeFormatter.BASIC_ISO_DATE)
+        )
+    }
+
 }
