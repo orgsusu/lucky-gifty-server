@@ -14,10 +14,8 @@ data class CreateUserRequestDto(
     @field:NotBlank
     val password: String,
 
-    @field:NotBlank
     val phone: String,
 
-    @field:NotBlank
     @field:Email
     val mail: String,
 
