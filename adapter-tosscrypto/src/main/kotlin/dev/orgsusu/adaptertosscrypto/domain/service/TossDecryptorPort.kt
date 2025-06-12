@@ -26,10 +26,14 @@ class TossDecryptorPort (
             val property = clazz.memberProperties.find { it.name == param.name } as? KProperty1<T, *> ?: continue
             property.isAccessible = true
 
-            val encryptedValue = property.get(encrypted) as? String
-                ?: throw IllegalArgumentException("Only String properties are supported (found ${property.name})")
+            val encryptedValue = property.get(encrypted) as? String?
 
-            val decryptedValue = tossSession.decrypt(encryptedValue)
+            val decryptedValue = if (encryptedValue != null) {
+                tossSession.decrypt(encryptedValue)
+            } else {
+                null
+            }
+
             args[param] = decryptedValue
         }
 
