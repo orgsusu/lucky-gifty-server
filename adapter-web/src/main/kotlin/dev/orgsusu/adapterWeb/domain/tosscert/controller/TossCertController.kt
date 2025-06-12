@@ -1,7 +1,7 @@
 package dev.orgsusu.adapterWeb.domain.tosscert.controller
 
 import dev.orgsusu.common.response.ResponseData
-import dev.orgsusu.domain.tosscert.model.wrapper.TossCertResultResponseDomainWrapper
+import dev.orgsusu.domain.tosscert.model.response.TossCertErrorResponseDomain
 import dev.orgsusu.domain.tosscert.model.wrapper.TossCertStatusResponseWrapper
 import dev.orgsusu.domain.tosscert.model.wrapper.TossCertTxIdResponseWrapper
 import dev.orgsusu.domain.tosscert.port.ingoing.TossCertUseCase
@@ -29,7 +29,7 @@ class TossCertController(
     }
 
     @GetMapping("/result/{tx-id}")
-    fun getResult(@PathVariable("tx-id") txId: String): ResponseEntity<ResponseData<TossCertResultResponseDomainWrapper>> {
+    fun getResult(@PathVariable("tx-id") txId: String): ResponseEntity<ResponseData<TossCertErrorResponseDomain?>> {
         val result = tossCertTokenUseCase.getResult(txId)
         return ResponseData.ok(data = result)
     }

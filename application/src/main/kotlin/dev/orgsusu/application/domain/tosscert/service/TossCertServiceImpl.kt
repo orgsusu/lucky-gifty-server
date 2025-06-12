@@ -2,6 +2,7 @@ package dev.orgsusu.application.domain.tosscert.service
 
 import dev.orgsusu.application.domain.tosscert.exception.TossCertExceptionDetails
 import dev.orgsusu.common.exception.CustomException
+import dev.orgsusu.domain.tosscert.model.response.TossCertErrorResponseDomain
 import dev.orgsusu.domain.tosscert.model.response.result.TossCertResultSuccessEncryptResponseDomain
 import dev.orgsusu.domain.tosscert.model.wrapper.TossCertResultResponseDomainWrapper
 import dev.orgsusu.domain.tosscert.model.wrapper.TossCertStatusResponseWrapper
@@ -38,7 +39,7 @@ class TossCertServiceImpl(
             ?: throw CustomException(TossCertExceptionDetails.FAIL_TO_FETCH)
     }
 
-    override fun getResult(txId: String): TossCertResultResponseDomainWrapper {
+    override fun getResult(txId: String): TossCertErrorResponseDomain? {
         val token = getAccessToken()
         val session = tossCertSessionPort.generateSession()
         val result = tossCertPort.requestResult(token, txId, session.sessionKey)
@@ -47,10 +48,7 @@ class TossCertServiceImpl(
             tossDecryptorPort.decryptAll<TossCertResultSuccessEncryptResponseDomain>(session.session, it)
         }
 
-        return TossCertResultResponseDomainWrapper(
-            resultType = result.resultType,
-            success = decryptedSuccess,
-            error = result.error
-        )
+
+        return result.error
     }
 }
