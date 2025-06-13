@@ -48,9 +48,8 @@ class TossCertServiceImpl(
         val result = tossCertPort.requestResult(token, txId, session.sessionKey)
             ?: throw CustomException(TossCertExceptionDetails.FAIL_TO_FETCH)
 
-        val success = result.success
-        if (success != null) {
-            val decryptedSuccess = tossDecryptorPort.decryptAll<TossCertResultSuccessEncryptResponseDomain>(session.session, success)
+        (result.success)?.let { success ->
+            val decryptedSuccess = tossDecryptorPort.decryptAll(session.session, success)
             updateUserWithResult(decryptedSuccess)
         }
         return result.error
