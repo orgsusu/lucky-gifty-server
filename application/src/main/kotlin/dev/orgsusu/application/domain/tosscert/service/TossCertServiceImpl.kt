@@ -6,6 +6,7 @@ import dev.orgsusu.domain.tosscert.model.response.TossCertErrorResponseDomain
 import dev.orgsusu.domain.tosscert.model.response.result.TossCertResultSuccessEncryptResponseDomain
 import dev.orgsusu.domain.tosscert.model.wrapper.TossCertStatusResponseWrapper
 import dev.orgsusu.domain.tosscert.model.wrapper.TossCertTxIdResponseWrapper
+import dev.orgsusu.domain.tosscert.port.ingoing.TossCertUseCase
 import dev.orgsusu.domain.tosscert.port.outgoing.TossCertSessionPort
 import dev.orgsusu.domain.tosscert.port.outgoing.TossDecryptorPort
 import dev.orgsusu.domain.tosscert.port.outgoing.TossCertPort
@@ -22,7 +23,7 @@ class TossCertServiceImpl(
     private val tossCertSessionPort: TossCertSessionPort,
     private val tossDecryptorPort: TossDecryptorPort,
     private val userUseCase: UserUseCase,
-) : TossCertService {
+) : TossCertUseCase {
     fun getAccessToken(): String {
         return tossCertTokenPort.getToken()
             ?: tossCertPort.requestAccessToken()?.let { tokenResponse ->
