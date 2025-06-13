@@ -3,7 +3,6 @@ package dev.orgsusu.adaptertosscrypto.domain.service
 import dev.orgsusu.adaptertosscrypto.global.TossSessionConfig
 import dev.orgsusu.domain.tosscert.port.outgoing.TossDecryptorPort
 import org.springframework.stereotype.Component
-import kotlin.reflect.KParameter
 import kotlin.reflect.KProperty1
 import kotlin.reflect.full.memberProperties
 import kotlin.reflect.full.primaryConstructor
@@ -20,21 +19,20 @@ class TossDecryptorPort (
         val constructor = clazz.primaryConstructor
             ?: throw IllegalArgumentException("No primary constructor found for ${clazz.simpleName}")
 
-        val args = mutableMapOf<KParameter, Any?>()
+        val propertyMap = clazz.memberProperties
+            .asSequence()
+            .filterIsInstance<KProperty1<T, *>>()
+            .onEach { it.isAccessible = true }
+            .associateBy { it.name }
 
-        for (param in constructor.parameters) {
-            val property = clazz.memberProperties.find { it.name == param.name } as? KProperty1<T, *> ?: continue
-            property.isAccessible = true
+        val args = constructor.parameters.associateWith {
+            val property = propertyMap[it.name]
+            val value = property?.get(encrypted)
 
-            val encryptedValue = property.get(encrypted) as? String?
-
-            val decryptedValue = if (encryptedValue != null) {
-                tossSession.decrypt(encryptedValue)
-            } else {
-                null
+            when (value) {
+                is String -> tossSession.decrypt(value)
+                else -> value
             }
-
-            args[param] = decryptedValue
         }
 
         return constructor.callBy(args)
