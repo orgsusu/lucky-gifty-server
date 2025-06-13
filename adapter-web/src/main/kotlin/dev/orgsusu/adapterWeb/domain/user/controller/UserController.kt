@@ -32,7 +32,7 @@ class UserController(
         val updatedUser = userUseCase.updateUserInfo(
             id = currentUser.id,
             phone = request.phone,
-            mail = request.mail,
+            email = request.email,
             birthDay = request.birthDay
         )
         return ResponseData.ok(data = UserResponseDto.Companion.fromUserDomain(updatedUser))

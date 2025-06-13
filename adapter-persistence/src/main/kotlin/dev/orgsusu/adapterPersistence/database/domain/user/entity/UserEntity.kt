@@ -23,7 +23,7 @@ class UserEntity(
     var phone: String?,
 
     @Column(unique = true, nullable = true)
-    var mail: String?,
+    var email: String?,
 
     @Column(nullable = true)
     var birthDay: LocalDate? = null,

@@ -7,7 +7,7 @@ data class UpdateUserRequestDto(
     val phone: String? = null,
 
     @field:Email
-    val mail: String? = null,
+    val email: String? = null,
 
     val birthDay: LocalDate? = null
 )

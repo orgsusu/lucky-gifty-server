@@ -39,14 +39,14 @@ class UserServiceImpl(
     override fun updateUserInfo(
         id: Long,
         phone: String?,
-        mail: String?,
+        email: String?,
         birthDay: LocalDate?
     ): UserDomain {
         val user = findUserByIdOrThrow(id)
 
         val updatedUser = user.copy(
             phone = phone ?: user.phone,
-            mail = mail ?: user.mail,
+            email = email ?: user.email,
             birthDay = birthDay ?: user.birthDay
         )
 

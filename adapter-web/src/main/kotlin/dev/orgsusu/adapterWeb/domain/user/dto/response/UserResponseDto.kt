@@ -9,8 +9,8 @@ import java.time.LocalDate
 data class UserResponseDto(
     val id: Long,
     val credential: String,
-    val phone: String,
-    val mail: String,
+    val phone: String?,
+    val email: String?,
     val birthDay: LocalDate? = null,
     val status: UserStatus
 ) { companion object; }

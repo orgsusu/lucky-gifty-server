@@ -14,10 +14,10 @@ data class CreateUserRequestDto(
     @field:NotBlank
     val password: String,
 
-    val phone: String,
+    val phone: String?,
 
     @field:Email
-    val mail: String,
+    val email: String?,
 
     val birthDay: LocalDate? = null
 )

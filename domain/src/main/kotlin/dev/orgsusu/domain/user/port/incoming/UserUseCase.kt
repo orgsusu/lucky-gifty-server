@@ -10,7 +10,7 @@ interface UserUseCase {
     fun updateUserInfo(
         id: Long,
         phone: String? = null,
-        mail: String? = null,
+        email: String? = null,
         birthDay: LocalDate? = null
     ): UserDomain
 
