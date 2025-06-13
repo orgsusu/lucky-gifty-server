@@ -35,7 +35,6 @@ class TossCertServiceImpl(
     override fun getTxId(): TossCertTxIdResponseWrapper =
         tossCertPort.requestTxId(getAccessToken())
             ?: throw CustomException(TossCertExceptionDetails.FAIL_TO_FETCH)
-    }
 
     override fun getStatus(txId: String): TossCertStatusResponseWrapper {
         val token = getAccessToken()
@@ -58,12 +57,15 @@ class TossCertServiceImpl(
     }
 
     private fun updateUserWithResult(decryptedSuccess: TossCertResultSuccessEncryptResponseDomain) {
+        val birthDay = decryptedSuccess.birthday?.let {
+            LocalDate.parse(it, DateTimeFormatter.BASIC_ISO_DATE)
+        }
+
         userUseCase.updateUserInfo(
             id = userUseCase.getCurrentUser().id,
             phone = decryptedSuccess.phone,
             email = decryptedSuccess.email,
-            birthDay = LocalDate.parse(decryptedSuccess.birthday, DateTimeFormatter.BASIC_ISO_DATE)
+            birthDay = birthDay
         )
     }
-
 }
