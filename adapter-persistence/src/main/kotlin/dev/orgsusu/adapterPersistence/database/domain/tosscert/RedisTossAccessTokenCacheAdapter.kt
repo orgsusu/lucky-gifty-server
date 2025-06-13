@@ -1,6 +1,7 @@
 package dev.orgsusu.adapterPersistence.database.domain.tosscert
 
 import dev.orgsusu.domain.tosscert.port.outgoing.TossCertTokenPort
+import dev.orgsusu.adapterPersistence.database.domain.tosscert.constant.TOSS_TOKEN_KEY
 import org.springframework.data.redis.core.StringRedisTemplate
 import org.springframework.stereotype.Component
 import java.time.Duration
@@ -9,10 +10,6 @@ import java.time.Duration
 class RedisTossAccessTokenCacheAdapter(
     private val redisTemplate: StringRedisTemplate
 ) : TossCertTokenPort {
-
-    companion object {
-        private const val TOSS_TOKEN_KEY = "toss:access_token"
-    }
 
     override fun getToken(): String? {
         return redisTemplate.opsForValue().get(TOSS_TOKEN_KEY)
