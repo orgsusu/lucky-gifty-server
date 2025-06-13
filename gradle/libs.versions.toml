@@ -2,7 +2,7 @@
 kotlin = "2.1.0"
 spring-boot = "3.4.3"
 spring-deps = "1.1.7"
-ksp = "2.1.21-2.0.1"
+ksp = "2.1.0-1.0.29"
 konvert = "4.0.1"
 toss = "0.0.3"
 
