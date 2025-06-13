@@ -1,6 +1,6 @@
 package dev.orgsusu.application.domain.user.service
 
-import dev.orgsusu.application.domain.user.dto.UserDomainMapper
+import dev.orgsusu.application.domain.user.mapper.UserDomainMapper
 import dev.orgsusu.common.exception.CustomException
 import dev.orgsusu.application.domain.user.exception.UserExceptionDetails
 import dev.orgsusu.domain.user.model.PartialUserDomain
@@ -38,16 +38,16 @@ class UserServiceImpl(
 
     override fun updateUserInfo(
         id: Long,
-        phoneNum: String?,
-        mail: String?,
-        birthDate: LocalDate?
+        phone: String?,
+        email: String?,
+        birthDay: LocalDate?
     ): UserDomain {
         val user = findUserByIdOrThrow(id)
 
         val updatedUser = user.copy(
-            phoneNum = phoneNum ?: user.phoneNum,
-            mail = mail ?: user.mail,
-            birthDate = birthDate ?: user.birthDate
+            phone = phone ?: user.phone,
+            email = email ?: user.email,
+            birthDay = birthDay ?: user.birthDay
         )
 
         return userPort.save(updatedUser)
@@ -77,7 +77,7 @@ class UserServiceImpl(
         return getUserInfo(userId)
     }
 
-    private fun findUserByIdOrThrow(id: Long): UserDomain {
+    override fun findUserByIdOrThrow(id: Long): UserDomain {
         return userPort.findById(id) ?: throw CustomException(UserExceptionDetails.SESSION_USER_NOT_FOUND)
     }
 }

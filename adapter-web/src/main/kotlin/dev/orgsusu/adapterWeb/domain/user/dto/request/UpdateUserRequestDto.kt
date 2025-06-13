@@ -4,10 +4,10 @@ import jakarta.validation.constraints.Email
 import java.time.LocalDate
 
 data class UpdateUserRequestDto(
-    val phoneNum: String? = null,
+    val phone: String? = null,
 
     @field:Email
-    val mail: String? = null,
+    val email: String? = null,
 
-    val birthDate: LocalDate? = null
+    val birthDay: LocalDate? = null
 )
