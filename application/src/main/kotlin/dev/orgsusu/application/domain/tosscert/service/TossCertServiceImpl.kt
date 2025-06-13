@@ -32,8 +32,8 @@ class TossCertServiceImpl(
             } ?: throw CustomException(TossCertExceptionDetails.FAIL_TO_FETCH)
     }
 
-    override fun getTxId(): TossCertTxIdResponseWrapper {
-        return tossCertPort.requestTxId(getAccessToken())
+    override fun getTxId(): TossCertTxIdResponseWrapper =
+        tossCertPort.requestTxId(getAccessToken())
             ?: throw CustomException(TossCertExceptionDetails.FAIL_TO_FETCH)
     }
 
@@ -61,7 +61,7 @@ class TossCertServiceImpl(
         userUseCase.updateUserInfo(
             id = userUseCase.getCurrentUser().id,
             phone = decryptedSuccess.phone,
-            mail = decryptedSuccess.email,
+            email = decryptedSuccess.email,
             birthDay = LocalDate.parse(decryptedSuccess.birthday, DateTimeFormatter.BASIC_ISO_DATE)
         )
     }
