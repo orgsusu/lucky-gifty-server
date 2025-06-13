@@ -20,10 +20,10 @@ class UserEntity(
     var password: String,
 
     @Column(unique = true, nullable = true)
-    var phone: String,
+    var phone: String?,
 
     @Column(unique = true, nullable = true)
-    var mail: String,
+    var mail: String?,
 
     @Column(nullable = true)
     var birthDay: LocalDate? = null,
