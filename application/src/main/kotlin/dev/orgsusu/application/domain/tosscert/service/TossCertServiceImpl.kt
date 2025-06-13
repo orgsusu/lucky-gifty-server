@@ -26,10 +26,9 @@ class TossCertServiceImpl(
 ) : TossCertUseCase {
     fun getAccessToken(): String {
         return tossCertTokenPort.getToken()
-            ?: tossCertPort.requestAccessToken()?.let { tokenResponse ->
+            ?: tossCertPort.requestAccessToken()?. also { tokenResponse ->
                 tossCertTokenPort.saveToken(tokenResponse.accessToken, tokenResponse.expiresIn.toLong())
-                tokenResponse.accessToken
-            } ?: throw CustomException(TossCertExceptionDetails.FAIL_TO_FETCH)
+            }?.accessToken ?: throw CustomException(TossCertExceptionDetails.FAIL_TO_FETCH)
     }
 
     override fun getTxId(): TossCertTxIdResponseWrapper =
