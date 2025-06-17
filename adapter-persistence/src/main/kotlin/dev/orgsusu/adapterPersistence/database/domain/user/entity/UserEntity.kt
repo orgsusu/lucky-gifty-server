@@ -19,14 +19,14 @@ class UserEntity(
     @Column
     var password: String,
 
-    @Column(unique = true)
-    var phoneNum: String,
+    @Column(unique = true, nullable = true)
+    var phone: String?,
 
-    @Column(unique = true)
-    var mail: String,
+    @Column(unique = true, nullable = true)
+    var email: String?,
 
     @Column(nullable = true)
-    var birthDate: LocalDate? = null,
+    var birthDay: LocalDate? = null,
 
     @Enumerated(EnumType.STRING)
     @Column

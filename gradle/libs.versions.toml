@@ -4,6 +4,7 @@ spring-boot = "3.4.3"
 spring-deps = "1.1.7"
 ksp = "2.1.0-1.0.29"
 konvert = "4.0.1"
+toss = "0.0.3"
 
 [libraries]
 kotlin-test-junit5 = { group = "org.jetbrains.kotlin", name = "kotlin-test-junit5" }
@@ -11,6 +12,7 @@ kotlin-test-junit5 = { group = "org.jetbrains.kotlin", name = "kotlin-test-junit
 spring-boot-core = { group = "org.springframework.boot", name = "spring-boot-starter-web" }
 spring-boot-validation = { group = "org.springframework.boot", name = "spring-boot-starter-validation" }
 spring-boot-security = { group = "org.springframework.boot", name = "spring-boot-starter-security" }
+spring-webflux = { group = "org.springframework.boot", name = "spring-boot-starter-webflux" }
 
 spring-data-jpa = { group = "org.springframework.boot", name = "spring-boot-starter-data-jpa" }
 spring-data-redis = { group = "org.springframework.boot", name = "spring-boot-starter-data-redis" }
@@ -25,6 +27,8 @@ spring-test-security = { group = "org.springframework.security", name = "spring-
 
 junit-platform = { group = "org.junit.platform", name = "junit-platform-launcher" }
 
+kotlin-reflect = { group = "org.jetbrains.kotlin", name = "kotlin-reflect" }
+
 mariadb = { group = "org.mariadb.jdbc", name = "mariadb-java-client" }
 
 jackson-core = { group = "com.fasterxml.jackson.core", name = "jackson-core" }
@@ -37,17 +41,19 @@ konvert-api = { group = "io.mcarle", name = "konvert-api", version.ref = "konver
 konvert-spring-annotations = { group = "io.mcarle", name = "konvert-spring-annotations", version.ref = "konvert" }
 konvert-spring-injector = { group = "io.mcarle", name = "konvert-spring-injector", version.ref = "konvert" }
 
+toss-cert = { group = "com.github.toss", name = "toss-cert-java-sdk", version.ref = "toss" }
+
 [bundles]
-jackson = [ "jackson-core", "jackson-databind", "jackson-jsr310", "jackson-kotlin" ]
-konvert-implementation = [ "konvert-api", "konvert-spring-annotations" ]
-konvert-ksp = [ "konvert-spring-injector", "konvert" ]
+jackson = ["jackson-core", "jackson-databind", "jackson-jsr310", "jackson-kotlin"]
+konvert-implementation = ["konvert-api", "konvert-spring-annotations"]
+konvert-ksp = ["konvert-spring-injector", "konvert"]
 spring-boot-persistence = ["spring-data-jpa", "spring-data-redis", "spring-data-jooq"]
-test = [ "kotlin-test-junit5", "spring-test-core" ]
+test = ["kotlin-test-junit5", "spring-test-core"]
 
 [plugins]
-kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref="kotlin" }
-kotlin-spring = { id = "org.jetbrains.kotlin.plugin.spring", version.ref="kotlin" }
-kotlin-jpa = { id = "org.jetbrains.kotlin.plugin.jpa", version.ref="kotlin" }
-spring-boot = { id = "org.springframework.boot", version.ref="spring-boot" }
-spring-deps = { id = "io.spring.dependency-management", version.ref="spring-deps" }
-ksp = { id = "com.google.devtools.ksp", version.ref="ksp" }
+kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
+kotlin-spring = { id = "org.jetbrains.kotlin.plugin.spring", version.ref = "kotlin" }
+kotlin-jpa = { id = "org.jetbrains.kotlin.plugin.jpa", version.ref = "kotlin" }
+spring-boot = { id = "org.springframework.boot", version.ref = "spring-boot" }
+spring-deps = { id = "io.spring.dependency-management", version.ref = "spring-deps" }
+ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }

@@ -1,4 +1,4 @@
-package dev.orgsusu.application.domain.user.dto
+package dev.orgsusu.application.domain.user.mapper
 
 import dev.orgsusu.domain.user.model.PartialUserDomain
 import dev.orgsusu.domain.user.model.UserDomain

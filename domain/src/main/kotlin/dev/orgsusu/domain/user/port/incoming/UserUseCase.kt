@@ -9,12 +9,13 @@ interface UserUseCase {
     fun getUserInfo(id: Long): UserDomain
     fun updateUserInfo(
         id: Long,
-        phoneNum: String? = null,
-        mail: String? = null,
-        birthDate: LocalDate? = null
+        phone: String? = null,
+        email: String? = null,
+        birthDay: LocalDate? = null
     ): UserDomain
 
     fun deleteUser(id: Long): UserDomain
     fun checkCredentialAvailable(credential: String): Boolean
     fun getCurrentUser(): UserDomain
+    fun findUserByIdOrThrow(id: Long): UserDomain
 }
