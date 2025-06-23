@@ -1,6 +1,6 @@
 rootProject.name = "lucky_gifty_server"
 
-plugins{
+plugins {
 
 }
 
@@ -10,4 +10,5 @@ include("adapter-web")
 include("adapter-persistence")
 include("adapter-toss")
 include("adapter-tosscrypto")
+include("adapter-kakao")
 include("common")
