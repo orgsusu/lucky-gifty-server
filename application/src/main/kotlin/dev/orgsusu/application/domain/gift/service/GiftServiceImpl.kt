@@ -7,13 +7,14 @@ import dev.orgsusu.domain.kakao.model.ProductWithReviewDomain
 import dev.orgsusu.domain.kakao.model.consts.PriceRange
 import dev.orgsusu.domain.kakao.model.consts.RankType
 import dev.orgsusu.domain.kakao.model.consts.TargetType
+import dev.orgsusu.domain.kakao.port.ingoing.GiftUseCase
 import dev.orgsusu.domain.kakao.port.outgoing.KakaoApiPort
 import org.springframework.stereotype.Service
 
 @Service
 class GiftServiceImpl(
     private val kakaoApiPort: KakaoApiPort,
-) : GiftService {
+) : GiftUseCase {
     override fun getRankingTargeted(
         target: TargetType,
         rank: RankType
