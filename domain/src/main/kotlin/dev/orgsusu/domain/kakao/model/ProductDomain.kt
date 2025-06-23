@@ -5,7 +5,7 @@ data class ProductDomain(
     val giftItemId: Long,
 
     val name: String,
-    val imageUrl: String,
+    val imageUrl: String?,
     val productType: String,
 
     val price: ProductPriceDomain,

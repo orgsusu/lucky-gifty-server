@@ -15,5 +15,5 @@ interface KakaoApiPort {
     fun getAllDeliveryRanking(page: Int, size: Int): List<ProductDomain>
     fun getAllCouponRanking(page: Int, size: Int): List<ProductDomain>
 
-    fun searchGift(term: String, page: Int): List<ProductSearchResultDomain>
+    fun searchGift(term: String, page: Int): ProductSearchResultDomain
 }

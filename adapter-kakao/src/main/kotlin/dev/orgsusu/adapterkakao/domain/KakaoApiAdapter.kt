@@ -1,10 +1,10 @@
 package dev.orgsusu.adapterkakao.domain
 
 import dev.orgsusu.adapterkakao.domain.dto.response.KakaoTagResponseDto
-import dev.orgsusu.adapterkakao.domain.dto.response.ProductWithReviewResponseDto
-import dev.orgsusu.adapterkakao.domain.dto.response.ProductSearchResultResponseDto
 import dev.orgsusu.adapterkakao.domain.dto.response.TargetedRankingResponseDto
 import dev.orgsusu.adapterkakao.domain.dto.response.TypedRankingResponseDto
+import dev.orgsusu.adapterkakao.domain.dto.response.WrappedProductSearchResultResponseDto
+import dev.orgsusu.adapterkakao.domain.dto.response.WrappedWithReviewResponseDto
 import dev.orgsusu.adapterkakao.domain.mapper.KakaoDtoMapper
 import dev.orgsusu.adapterkakao.global.consts.V1
 import dev.orgsusu.adapterkakao.global.consts.V2
@@ -19,6 +19,7 @@ import dev.orgsusu.domain.kakao.port.outgoing.KakaoApiPort
 import org.springframework.stereotype.Component
 import org.springframework.web.reactive.function.client.WebClient
 import org.springframework.web.reactive.function.client.bodyToFlux
+import org.springframework.web.reactive.function.client.bodyToMono
 import reactor.core.publisher.Flux
 
 @Component
@@ -39,7 +40,8 @@ class KakaoApiAdapter(
                     .queryParam("rankType", rank.name)
                     .build()
             }
-            .exchangeToFlux { it.bodyToFlux<TargetedRankingResponseDto>() }
+            .retrieve()
+            .bodyToFlux<TargetedRankingResponseDto>()
             .map { kakaoDtoMapper.toProductDomain(it.rankingItem) }
             .toIterable() // map to blockable iteration
             .toList() // actual block
@@ -53,7 +55,8 @@ class KakaoApiAdapter(
                     .path("$V1/review-rankings/display-tags")
                     .build()
             }
-            .exchangeToFlux { it.bodyToFlux<KakaoTagResponseDto>() }
+            .retrieve()
+            .bodyToFlux<KakaoTagResponseDto>()
             .map { kakaoDtoMapper.toKakaoTagDomain(it) }
             .toIterable() // map to blockable iteration
             .toList() // actual block
@@ -72,10 +75,11 @@ class KakaoApiAdapter(
                     .queryParam("priceRange", range.name)
                     .build()
             }
-            .exchangeToFlux { it.bodyToFlux<ProductWithReviewResponseDto>() }
+            .retrieve()
+            .bodyToMono<WrappedWithReviewResponseDto>()
+            .map { it.rankings }
+            .block()!!
             .map { kakaoDtoMapper.toProductWithReviewDomain(it) }
-            .toIterable() // map to blockable iteration
-            .toList() // actual block
     }
 
     override fun getAllDeliveryRanking(page: Int, size: Int): List<ProductDomain> {
@@ -88,7 +92,8 @@ class KakaoApiAdapter(
                     .queryParam("size", size)
                     .build()
             }
-            .exchangeToFlux { it.bodyToFlux<TypedRankingResponseDto>() }
+            .retrieve()
+            .bodyToFlux<TypedRankingResponseDto>()
             .filterIsInstance<TypedRankingResponseDto.RankingView>()
             .map { kakaoDtoMapper.toProductDomain(it.product) }
             .toIterable() // map to blockable iteration
@@ -105,14 +110,15 @@ class KakaoApiAdapter(
                     .queryParam("size", size)
                     .build()
             }
-            .exchangeToFlux { it.bodyToFlux<TypedRankingResponseDto>() }
+            .retrieve()
+            .bodyToFlux<TypedRankingResponseDto>()
             .filterIsInstance<TypedRankingResponseDto.RankingView>()
             .map { kakaoDtoMapper.toProductDomain(it.product) }
             .toIterable() // map to blockable iteration
             .toList() // actual block
     }
 
-    override fun searchGift(term: String, page: Int): List<ProductSearchResultDomain> {
+    override fun searchGift(term: String, page: Int): ProductSearchResultDomain {
         return kakaoClient
             .get()
             .uri {
@@ -122,11 +128,10 @@ class KakaoApiAdapter(
                     .queryParam("query", term)
                     .build()
             }
-            .exchangeToFlux { it.bodyToFlux<ProductSearchResultResponseDto>() }
-            .map { kakaoDtoMapper.toProductSearchResultDomain(it) }
-            .toIterable() // map to blockable iteration
-            .toList() // actual block
-
+            .retrieve()
+            .bodyToMono<WrappedProductSearchResultResponseDto>()
+            .map { kakaoDtoMapper.toProductSearchResultDomain(it.products) }
+            .block()!!
     }
 
     // inspired by List#filterIsInstance

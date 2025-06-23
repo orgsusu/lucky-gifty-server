@@ -5,7 +5,7 @@ data class ProductDto(
     val giftItemId: Long,
 
     val name: String,
-    val imageUrl: String,
+    val imageUrl: String?,
     val productType: String,
 
     val price: ProductPriceDto,
