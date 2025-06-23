@@ -11,9 +11,9 @@ import dev.orgsusu.domain.kakao.model.consts.TargetType
 interface KakaoApiPort {
     fun getRankingTargeted(target: TargetType, rank: RankType): List<ProductDomain>
     fun getTags(): List<KakaoTagDomain>
-    fun getRankingWithReviews(tag: String, range: PriceRange): List<ProductWithReviewDomain>
+    fun getRankingWithReviews(tag: String, range: PriceRange): List<ProductWithReviewDomain>?
     fun getAllDeliveryRanking(page: Int, size: Int): List<ProductDomain>
     fun getAllCouponRanking(page: Int, size: Int): List<ProductDomain>
 
-    fun searchGift(term: String, page: Int): ProductSearchResultDomain
+    fun searchGift(term: String, page: Int): ProductSearchResultDomain?
 }

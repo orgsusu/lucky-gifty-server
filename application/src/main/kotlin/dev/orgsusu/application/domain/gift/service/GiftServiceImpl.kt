@@ -24,7 +24,7 @@ class GiftServiceImpl(
     override fun getRankingWithReviews(
         tag: String,
         range: PriceRange
-    ): List<ProductWithReviewDomain> = kakaoApiPort.getRankingWithReviews(tag, range)
+    ): List<ProductWithReviewDomain> = kakaoApiPort.getRankingWithReviews(tag, range) ?: emptyList()
 
     override fun getAllDeliveryRanking(
         page: Int,
@@ -39,5 +39,13 @@ class GiftServiceImpl(
     override fun searchGift(
         term: String,
         page: Int
-    ): ProductSearchResultDomain = kakaoApiPort.searchGift(term, page)
+    ): ProductSearchResultDomain = kakaoApiPort.searchGift(term, page) ?: EMPTY_RESULT_DOMAIN
+
+    private companion object {
+        private val EMPTY_RESULT_DOMAIN = ProductSearchResultDomain(
+            total = 0,
+            last = true,
+            data = emptyList(),
+        )
+    }
 }

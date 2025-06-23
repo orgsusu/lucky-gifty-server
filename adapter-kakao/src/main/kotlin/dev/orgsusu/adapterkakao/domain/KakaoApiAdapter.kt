@@ -65,7 +65,7 @@ class KakaoApiAdapter(
     override fun getRankingWithReviews(
         tag: String,
         range: PriceRange
-    ): List<ProductWithReviewDomain> {
+    ): List<ProductWithReviewDomain>? {
         return kakaoClient
             .get()
             .uri {
@@ -78,8 +78,8 @@ class KakaoApiAdapter(
             .retrieve()
             .bodyToMono<WrappedWithReviewResponseDto>()
             .map { it.rankings }
-            .block()!!
-            .map { kakaoDtoMapper.toProductWithReviewDomain(it) }
+            .block()
+            ?.map { kakaoDtoMapper.toProductWithReviewDomain(it) }
     }
 
     override fun getAllDeliveryRanking(page: Int, size: Int): List<ProductDomain> {
@@ -118,7 +118,7 @@ class KakaoApiAdapter(
             .toList() // actual block
     }
 
-    override fun searchGift(term: String, page: Int): ProductSearchResultDomain {
+    override fun searchGift(term: String, page: Int): ProductSearchResultDomain? {
         return kakaoClient
             .get()
             .uri {
@@ -131,7 +131,7 @@ class KakaoApiAdapter(
             .retrieve()
             .bodyToMono<WrappedProductSearchResultResponseDto>()
             .map { kakaoDtoMapper.toProductSearchResultDomain(it.products) }
-            .block()!!
+            .block()
     }
 
     // inspired by List#filterIsInstance
