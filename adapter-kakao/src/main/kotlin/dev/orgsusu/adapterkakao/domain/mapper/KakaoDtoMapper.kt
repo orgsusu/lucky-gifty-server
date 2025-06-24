@@ -32,7 +32,7 @@ interface KakaoDtoMapper {
         ]
     )
     fun toProductDomain(dto: ProductDto): ProductDomain
-    fun toProductDomain(@Konverter.Source dto: PartialProductDto, brand: ProductBrandDto): ProductDomain
+    fun toProductDomain(@Konverter.Source dto: PartialProductDto, brand: ProductBrandDomain): ProductDomain
     fun toDomain(dto: ProductBrandDto): ProductBrandDomain
 
     @Konvert(

@@ -1,7 +1,5 @@
 package dev.orgsusu.adapterkakao.domain.dto.response
 
-import dev.orgsusu.adapterkakao.domain.dto.ProductPriceDto
-
 data class PartialProductDto(
     val id: Long,
     val giftItemId: Long,
@@ -10,5 +8,7 @@ data class PartialProductDto(
     val imageUrl: String?,
     val productType: String,
 
-    val price: ProductPriceDto,
+    val basicPrice: Int,
+    val sellingPrice: Int,
+    val discountRate: Int,
 )
