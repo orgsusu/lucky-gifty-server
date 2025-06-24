@@ -140,7 +140,7 @@ class KakaoApiAdapter(
             }
             .retrieve()
             .bodyToMono<GiftDetailResponseDto>()
-            .map { kakaoDtoMapper.toProductDomain(it.itemDetails.item, it.itemDetails.brand) }
+            .map { kakaoDtoMapper.toProductDomain(it.itemDetails.item, kakaoDtoMapper.toDomain(it.itemDetails.brand)) }
             .block()
     }
 
