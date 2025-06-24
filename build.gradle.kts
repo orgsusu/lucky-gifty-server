@@ -58,6 +58,7 @@ dependencies {
     implementation(project(":adapter-persistence"))
     implementation(project(":adapter-toss"))
     implementation(project(":adapter-tosscrypto"))
+    implementation(project(":adapter-kakao"))
 
     implementation(libs.spring.boot.core)
     implementation(libs.spring.data.jpa)
