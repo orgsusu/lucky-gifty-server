@@ -2,14 +2,13 @@ package dev.orgsusu.adapterkakao.domain.mapper
 
 import dev.orgsusu.adapterkakao.domain.dto.ProductBrandDto
 import dev.orgsusu.adapterkakao.domain.dto.ProductDto
-import dev.orgsusu.adapterkakao.domain.dto.ProductPriceDto
 import dev.orgsusu.adapterkakao.domain.dto.response.KakaoTagResponseDto
+import dev.orgsusu.adapterkakao.domain.dto.response.PartialProductDto
 import dev.orgsusu.adapterkakao.domain.dto.response.ProductWithReviewResponseDto
 import dev.orgsusu.adapterkakao.domain.dto.response.ProductSearchResultResponseDto
 import dev.orgsusu.domain.kakao.model.KakaoTagDomain
 import dev.orgsusu.domain.kakao.model.ProductBrandDomain
 import dev.orgsusu.domain.kakao.model.ProductDomain
-import dev.orgsusu.domain.kakao.model.ProductPriceDomain
 import dev.orgsusu.domain.kakao.model.ProductSearchResultDomain
 import dev.orgsusu.domain.kakao.model.ProductWithReviewDomain
 import io.mcarle.konvert.api.Konvert
@@ -25,8 +24,15 @@ import java.time.temporal.ChronoField
 interface KakaoDtoMapper {
     fun toKakaoTagDomain(dto: KakaoTagResponseDto): KakaoTagDomain
 
+    @Konvert(
+        mappings = [
+            Mapping(target = "basicPrice", expression = "it.price.basicPrice"),
+            Mapping(target = "sellingPrice", expression = "it.price.sellingPrice"),
+            Mapping(target = "discountRate", expression = "it.price.discountRate"),
+        ]
+    )
     fun toProductDomain(dto: ProductDto): ProductDomain
-    fun toDomain(dto: ProductPriceDto): ProductPriceDomain
+    fun toProductDomain(@Konverter.Source dto: PartialProductDto, brand: ProductBrandDto): ProductDomain
     fun toDomain(dto: ProductBrandDto): ProductBrandDomain
 
     @Konvert(

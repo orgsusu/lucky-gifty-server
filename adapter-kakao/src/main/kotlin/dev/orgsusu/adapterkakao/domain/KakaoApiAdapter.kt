@@ -1,10 +1,6 @@
 package dev.orgsusu.adapterkakao.domain
 
-import dev.orgsusu.adapterkakao.domain.dto.response.KakaoTagResponseDto
-import dev.orgsusu.adapterkakao.domain.dto.response.TargetedRankingResponseDto
-import dev.orgsusu.adapterkakao.domain.dto.response.TypedRankingResponseDto
-import dev.orgsusu.adapterkakao.domain.dto.response.WrappedProductSearchResultResponseDto
-import dev.orgsusu.adapterkakao.domain.dto.response.WrappedWithReviewResponseDto
+import dev.orgsusu.adapterkakao.domain.dto.response.*
 import dev.orgsusu.adapterkakao.domain.mapper.KakaoDtoMapper
 import dev.orgsusu.adapterkakao.global.consts.V1
 import dev.orgsusu.adapterkakao.global.consts.V2
@@ -131,6 +127,20 @@ class KakaoApiAdapter(
             .retrieve()
             .bodyToMono<WrappedProductSearchResultResponseDto>()
             .map { kakaoDtoMapper.toProductSearchResultDomain(it.products) }
+            .block()
+    }
+
+    override fun getGiftDetail(id: Long): ProductDomain? {
+        return kakaoClient
+            .get()
+            .uri {
+                it
+                    .path("/product-detail$V2/products/{productId}")
+                    .build(mapOf("productId" to id))
+            }
+            .retrieve()
+            .bodyToMono<GiftDetailResponseDto>()
+            .map { kakaoDtoMapper.toProductDomain(it.itemDetails.item, it.itemDetails.brand) }
             .block()
     }
 

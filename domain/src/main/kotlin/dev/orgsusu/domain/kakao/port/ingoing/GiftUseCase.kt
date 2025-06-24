@@ -16,4 +16,5 @@ interface GiftUseCase {
     fun getAllCouponRanking(page: Int, size: Int): List<ProductDomain>
 
     fun searchGift(term: String, page: Int): ProductSearchResultDomain
+    fun getGiftDetail(id: Long): ProductDomain
 }

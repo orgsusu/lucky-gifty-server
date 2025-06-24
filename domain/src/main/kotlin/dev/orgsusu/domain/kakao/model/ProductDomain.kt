@@ -6,8 +6,10 @@ data class ProductDomain(
 
     val name: String,
     val imageUrl: String?,
-    val productType: String,
 
-    val price: ProductPriceDomain,
+    val basicPrice: Int,
+    val sellingPrice: Int,
+    val discountRate: Int,
+
     val brand: ProductBrandDomain,
 )

@@ -11,6 +11,7 @@ import dev.orgsusu.domain.kakao.model.consts.TargetType
 import dev.orgsusu.domain.kakao.port.ingoing.GiftUseCase
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RestController
@@ -68,6 +69,14 @@ class GiftController(
         @RequestParam(required = false, defaultValue = "0") page: Int,
     ): ResponseEntity<ResponseData<ProductSearchResultDomain>> {
         val data = giftUseCase.searchGift(term, page)
+        return ResponseData.ok(data = data)
+    }
+
+    @GetMapping("/{id}")
+    fun getOneGiftDetail(
+        @PathVariable id: Long,
+    ): ResponseEntity<ResponseData<ProductDomain>> {
+        val data = giftUseCase.getGiftDetail(id)
         return ResponseData.ok(data = data)
     }
 }
