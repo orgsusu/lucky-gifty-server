@@ -42,20 +42,28 @@ class LuckyBoxServiceImpl(
     }
 
     override fun getLuckyBoxById(uuid: UUID): LuckyBoxDomain {
-        val userId = userContextHolder.getCurrentUserId()
-            ?: throw CustomException(AuthExceptionDetails.UNAUTHORIZED)
+//        val userId = userContextHolder.getCurrentUserId()
+//            ?: throw CustomException(AuthExceptionDetails.UNAUTHORIZED)
 
-        val created = luckyBoxPort.getLuckyBoxById(uuid)
+        val luckyBox = luckyBoxPort.getLuckyBoxById(uuid)
             ?: throw CustomException(LuckyBoxExceptionDetails.LUCKY_BOX_NOT_FOUND, uuid)
 
-        if (created.createdBy.id != userId) // TODO: should access when user is invited by our url
-            throw CustomException(LuckyBoxExceptionDetails.LUCKY_BOX_NOT_FOUND, uuid)
+//        if (luckyBox.createdBy.id != userId) // TODO: should access when user is invited by our url
+//            throw CustomException(LuckyBoxExceptionDetails.LUCKY_BOX_NOT_FOUND, uuid)
 
-        return created
+        return luckyBox
     }
 
     override fun deleteLuckyBoxById(uuid: UUID) {
-        val luckyBox = getLuckyBoxById(uuid) // validate mine
+        val userId = userContextHolder.getCurrentUserId()
+            ?: throw CustomException(AuthExceptionDetails.UNAUTHORIZED)
+
+        val luckyBox = luckyBoxPort.getLuckyBoxById(uuid)
+            ?: throw CustomException(LuckyBoxExceptionDetails.LUCKY_BOX_NOT_FOUND, uuid)
+
+        if (luckyBox.createdBy.id != userId)
+            throw CustomException(LuckyBoxExceptionDetails.LUCKY_BOX_NOT_FOUND, uuid)
+
         luckyBoxPort.deleteLuckyBoxById(luckyBox.id)
     }
 
@@ -63,7 +71,14 @@ class LuckyBoxServiceImpl(
         uuid: UUID,
         id: Long
     ): LuckyBoxProductDomain {
-        val luckyBox = getLuckyBoxById(uuid)
+        val userId = userContextHolder.getCurrentUserId()
+            ?: throw CustomException(AuthExceptionDetails.UNAUTHORIZED)
+
+        val luckyBox = luckyBoxPort.getLuckyBoxById(uuid)
+            ?: throw CustomException(LuckyBoxExceptionDetails.LUCKY_BOX_NOT_FOUND, uuid)
+
+        if (luckyBox.createdBy.id != userId)
+            throw CustomException(LuckyBoxExceptionDetails.LUCKY_BOX_NOT_FOUND, uuid)
 
         val gift = kakaoApiPort.getGiftDetail(id)
             ?: throw CustomException(GiftExceptionDetails.GIFT_NOT_FOUND, id)
@@ -84,7 +99,14 @@ class LuckyBoxServiceImpl(
     }
 
     override fun deleteProductOnLuckyBox(uuid: UUID, id: Long) {
-        val luckyBox = getLuckyBoxById(uuid)
+        val userId = userContextHolder.getCurrentUserId()
+            ?: throw CustomException(AuthExceptionDetails.UNAUTHORIZED)
+
+        val luckyBox = luckyBoxPort.getLuckyBoxById(uuid)
+            ?: throw CustomException(LuckyBoxExceptionDetails.LUCKY_BOX_NOT_FOUND, uuid)
+
+        if (luckyBox.createdBy.id != userId)
+            throw CustomException(LuckyBoxExceptionDetails.LUCKY_BOX_NOT_FOUND, uuid)
 
         luckyBoxProductPort.removeProductById(luckyBox.id, id)
     }
