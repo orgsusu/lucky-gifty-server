@@ -14,7 +14,6 @@ import dev.orgsusu.domain.luckybox.port.outgoing.LuckyBoxPort
 import dev.orgsusu.domain.luckybox.port.outgoing.LuckyBoxProductPort
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Component
-import org.springframework.transaction.annotation.Transactional
 import java.util.UUID
 
 @Component
@@ -31,7 +30,6 @@ class LuckyBoxPersistenceAdapter(
             .map { luckyBoxMapper.entityToDomain(it) }
     }
 
-    @Transactional(rollbackFor = [Exception::class])
     override fun createLuckyBox(userId: Long, name: String): LuckyBoxDomain? {
         val user = userRepository.findByIdOrNull(userId) ?: return null
 
@@ -71,7 +69,6 @@ class LuckyBoxPersistenceAdapter(
         )
     }
 
-    @Transactional(rollbackFor = [Exception::class])
     override fun deleteLuckyBoxById(uuid: UUID) = luckyBoxRepository.deleteById(uuid)
 
     override fun setSelectedInLuckyBox(
@@ -79,7 +76,6 @@ class LuckyBoxPersistenceAdapter(
         selectedId: Long
     ) = luckyBoxRepository.updatePickedIdWithId(uuid, selectedId)
 
-    @Transactional(rollbackFor = [Exception::class])
     override fun createProduct(
         uuid: UUID,
         id: Long,
@@ -108,7 +104,6 @@ class LuckyBoxPersistenceAdapter(
         return luckyBoxMapper.entityToDomain(savedProduct)
     }
 
-    @Transactional(rollbackFor = [Exception::class])
     override fun removeProductById(uuid: UUID, id: Long) {
         luckyBoxProductRepository.deleteByCompositeKey(uuid, id)
     }
