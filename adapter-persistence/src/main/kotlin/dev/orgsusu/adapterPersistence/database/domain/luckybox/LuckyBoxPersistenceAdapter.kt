@@ -33,10 +33,7 @@ class LuckyBoxPersistenceAdapter(
 
     @Transactional(rollbackFor = [Exception::class])
     override fun createLuckyBox(userId: Long, name: String): LuckyBoxDomain? {
-        val user = userRepository.findByIdOrNull(userId)
-
-        if (user == null)
-            return null
+        val user = userRepository.findByIdOrNull(userId) ?: return null
 
         val saved = luckyBoxRepository.save(
             LuckyBoxEntity(
