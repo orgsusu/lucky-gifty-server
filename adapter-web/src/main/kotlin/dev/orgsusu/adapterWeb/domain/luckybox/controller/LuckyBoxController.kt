@@ -39,7 +39,7 @@ class LuckyBoxController(
     }
 
     @GetMapping("/{uuid}")
-    fun getLuckyBoxById(@PathVariable uuid: UUID): ResponseEntity<ResponseData<LuckyBoxResponseDto>> {
+    fun openLuckyBox(@PathVariable uuid: UUID): ResponseEntity<ResponseData<LuckyBoxResponseDto>> {
         val data = luckyBoxUseCase.getLuckyBoxById(uuid)
         return ResponseData.ok(data = LuckyBoxResponseDto.fromLuckyBoxDomain(data))
     }
@@ -48,6 +48,12 @@ class LuckyBoxController(
     fun deleteLuckyBoxById(@PathVariable uuid: UUID): ResponseEntity<ResponseEmpty> {
         luckyBoxUseCase.deleteLuckyBoxById(uuid)
         return ResponseEmpty.noContent()
+    }
+
+    @PostMapping("/{uuid}")
+    fun getLuckyBoxById(@PathVariable uuid: UUID): ResponseEntity<ResponseData<LuckyBoxProductDomain>> {
+        val data = luckyBoxUseCase.openLuckyBox(uuid)
+        return ResponseData.ok(data = data)
     }
 
     @PostMapping("/{boxId}/products")

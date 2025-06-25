@@ -31,6 +31,19 @@ class LuckyBoxServiceImpl(
         return luckyBoxPort.getAllLuckyBoxes(userId)
     }
 
+    override fun openLuckyBox(uuid: UUID): LuckyBoxProductDomain {
+        val box = getLuckyBoxById(uuid)
+
+        if (box.result != null)
+            return box.result!! // this is null safe
+
+        val selected = box.products.random() // TODO: secure random
+
+        luckyBoxPort.setSelectedInLuckyBox(box.id, selected.id)
+
+        return selected
+    }
+
     override fun createLuckyBox(name: String): LuckyBoxDomain {
         val userId = userContextHolder.getCurrentUserId()
             ?: throw CustomException(AuthExceptionDetails.UNAUTHORIZED)
@@ -80,6 +93,9 @@ class LuckyBoxServiceImpl(
         if (luckyBox.createdBy.id != userId)
             throw CustomException(LuckyBoxExceptionDetails.LUCKY_BOX_NOT_FOUND, uuid)
 
+        if (luckyBox.result != null)
+            throw CustomException(LuckyBoxExceptionDetails.PRODUCT_IS_ALREADY_SET)
+
         val gift = kakaoApiPort.getGiftDetail(id)
             ?: throw CustomException(GiftExceptionDetails.GIFT_NOT_FOUND, id)
 
@@ -107,6 +123,9 @@ class LuckyBoxServiceImpl(
 
         if (luckyBox.createdBy.id != userId)
             throw CustomException(LuckyBoxExceptionDetails.LUCKY_BOX_NOT_FOUND, uuid)
+
+        if (luckyBox.result != null)
+            throw CustomException(LuckyBoxExceptionDetails.PRODUCT_IS_ALREADY_SET)
 
         luckyBoxProductPort.removeProductById(luckyBox.id, id)
     }

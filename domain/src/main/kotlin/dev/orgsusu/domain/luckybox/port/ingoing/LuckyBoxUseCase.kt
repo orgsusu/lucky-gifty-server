@@ -9,6 +9,8 @@ interface LuckyBoxUseCase {
     fun getAllLuckyBoxes(): List<LuckyBoxSimpleDomain>
     fun getLuckyBoxById(uuid: UUID): LuckyBoxDomain
 
+    fun openLuckyBox(uuid: UUID): LuckyBoxProductDomain
+
     fun createLuckyBox(name: String): LuckyBoxDomain
     fun deleteLuckyBoxById(uuid: UUID)
 

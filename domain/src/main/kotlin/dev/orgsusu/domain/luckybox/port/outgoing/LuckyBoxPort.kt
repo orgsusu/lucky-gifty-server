@@ -9,4 +9,6 @@ interface LuckyBoxPort {
     fun createLuckyBox(userId: Long, name: String): LuckyBoxDomain?
     fun getLuckyBoxById(uuid: UUID): LuckyBoxDomain?
     fun deleteLuckyBoxById(uuid: UUID)
+
+    fun setSelectedInLuckyBox(uuid: UUID, selectedId: Long)
 }
