@@ -72,16 +72,12 @@ class LuckyBoxPersistenceAdapter(
     }
 
     @Transactional(rollbackFor = [Exception::class])
-    override fun deleteLuckyBoxById(uuid: UUID) {
-        luckyBoxRepository.deleteById(uuid)
-    }
+    override fun deleteLuckyBoxById(uuid: UUID) = luckyBoxRepository.deleteById(uuid)
 
     override fun setSelectedInLuckyBox(
         uuid: UUID,
         selectedId: Long
-    ) {
-        luckyBoxRepository.updatePickedIdWithId(uuid, selectedId)
-    }
+    ) = luckyBoxRepository.updatePickedIdWithId(uuid, selectedId)
 
     @Transactional(rollbackFor = [Exception::class])
     override fun createProduct(
