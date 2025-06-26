@@ -6,6 +6,7 @@ import dev.orgsusu.adapterkakao.domain.dto.response.KakaoTagResponseDto
 import dev.orgsusu.adapterkakao.domain.dto.response.PartialProductDto
 import dev.orgsusu.adapterkakao.domain.dto.response.ProductWithReviewResponseDto
 import dev.orgsusu.adapterkakao.domain.dto.response.ProductSearchResultResponseDto
+import dev.orgsusu.adapterkakao.domain.dto.response.SearchProductResponseDto
 import dev.orgsusu.domain.kakao.model.KakaoTagDomain
 import dev.orgsusu.domain.kakao.model.ProductBrandDomain
 import dev.orgsusu.domain.kakao.model.ProductDomain
@@ -32,6 +33,15 @@ interface KakaoDtoMapper {
         ]
     )
     fun toProductDomain(dto: ProductDto): ProductDomain
+    @Konvert(
+        mappings = [
+            Mapping(target = "basicPrice", expression = "it.price.basicPrice"),
+            Mapping(target = "sellingPrice", expression = "it.price.sellingPrice"),
+            Mapping(target = "discountRate", expression = "it.price.discountRate"),
+            Mapping(target = "imageUrl", expression = "it.image.imageUrl"),
+        ]
+    )
+    fun toProductDomain(dto: SearchProductResponseDto): ProductDomain
     fun toProductDomain(@Konverter.Source dto: PartialProductDto, brand: ProductBrandDomain): ProductDomain
     fun toDomain(dto: ProductBrandDto): ProductBrandDomain
 
