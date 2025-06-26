@@ -6,7 +6,6 @@ data class PartialProductDto(
 
     val name: String,
     val imageUrl: String?,
-    val productType: String,
 
     val basicPrice: Int,
     val sellingPrice: Int,

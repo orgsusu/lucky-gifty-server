@@ -1,13 +1,16 @@
 package dev.orgsusu.adapterPersistence.database.domain.user.entity
 
 import dev.orgsusu.adapterPersistence.database.global.entity.BaseTimeEntity
+import dev.orgsusu.domain.user.model.UserDomain
 import jakarta.persistence.*
 import dev.orgsusu.domain.user.model.UserStatus
+import io.mcarle.konvert.api.KonvertTo
 import java.time.LocalDate
 import java.time.LocalDateTime
 
 @Entity
 @Table(name = "tb_user")
+@KonvertTo(UserDomain::class)
 class UserEntity(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
